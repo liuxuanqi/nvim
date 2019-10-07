@@ -115,21 +115,21 @@ noremap <LEADER>rc :e ~/.config/nvim/init.vim<CR>
 noremap <LEADER>st :Startify<CR>
 
 " Undo operations
-noremap l u
+"noremap l u
 
 " Insert Key
-noremap k i
-noremap K I
+"noremap k i
+"noremap K I
 
 " Copy to system clipboard
 vnoremap Y :w !xclip -i -sel c<CR>
 
 " Joining lines
-noremap H J
+"noremap H J
 
 " Indentation
-nnoremap < <<
-nnoremap > >>
+"nnoremap < <<
+"nnoremap > >>
 
 " Search
 noremap <LEADER><CR> :nohlsearch<CR>
@@ -155,10 +155,10 @@ noremap <silent> <LEADER>o za
 " < n	 i >
 "		 e
 "		 v
-noremap <silent> u k
-noremap <silent> n h
-noremap <silent> e j
-noremap <silent> i l
+"noremap <silent> u k
+"noremap <silent> n h
+"noremap <silent> e j
+"noremap <silent> i l
 
 " U/E keys for 5 times u/e (faster navigation)
 noremap <silent> U 5k
