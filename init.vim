@@ -11,7 +11,6 @@
 " fmoralesc/worldslice
 " SidOfc/mkdx
 
-
 " ===
 " === Auto load for first time uses
 " ===
@@ -30,27 +29,42 @@ endif
 " ===
 "set clipboard=unnamed
 let &t_ut=''
+
+"auto switch dirs
 set autochdir
 
 
 " ===
 " === Editor behavior
 " ===
+set nocompatible
 set number
 set relativenumber
 set cursorline
 set noexpandtab
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+
+" come from vimplus
 set autoindent
+set cindent " c stype indent
+set cinoptions=g0,:0,N-s,(0)
+set smartindent
+set nobackup
+set noswapfile
+set autoread
+set autowrite
+set confirm
+
+
 set list
 set listchars=tab:▸\ ,trail:▫
 set scrolloff=4
 set ttimeoutlen=0
 set notimeout
 set viewoptions=cursor,folds,slash,unix
-set wrap
+set nowrap
 set tw=0
 set indentexpr=
 set foldmethod=indent
@@ -102,7 +116,7 @@ tnoremap <C-N> <C-\><C-N>
 " ===
 " Set <LEADER> as <SPACE>, ; as :
 let mapleader=" "
-noremap ; :
+"noremap ; :
 
 " Save & quit
 noremap Q :q<CR>
@@ -114,22 +128,11 @@ noremap <LEADER>rc :e ~/.config/nvim/init.vim<CR>
 " Open Startify
 noremap <LEADER>st :Startify<CR>
 
-" Undo operations
-"noremap l u
-
-" Insert Key
-"noremap k i
-"noremap K I
+" Map jj to ESC
+inoremap jj <ESC>
 
 " Copy to system clipboard
 vnoremap Y :w !xclip -i -sel c<CR>
-
-" Joining lines
-"noremap H J
-
-" Indentation
-"nnoremap < <<
-"nnoremap > >>
 
 " Search
 noremap <LEADER><CR> :nohlsearch<CR>
@@ -137,68 +140,36 @@ noremap <LEADER><CR> :nohlsearch<CR>
 "noremap - Nzz
 
 " Adjacent duplicate words
-noremap <LEADER>dw /\(\<\w\+\>\)\_s*\1
+"noremap <LEADER>dw /\(\<\w\+\>\)\_s*\1
 
 " Space to Tab
-noremap <LEADER>tt :%s/  /\t/g
+"noremap <LEADER>tt :%s/  /\t/g
 
 " Folding
 noremap <silent> <LEADER>o za
-
-
-" ===
-" === Cursor Movement
-" ===
-" New cursor movement (the default arrow keys are used for resizing windows)
-"		 ^
-"		 u
-" < n	 i >
-"		 e
-"		 v
-"noremap <silent> u k
-"noremap <silent> n h
-"noremap <silent> e j
-"noremap <silent> i l
-
-" U/E keys for 5 times u/e (faster navigation)
-noremap <silent> U 5k
-noremap <silent> E 5j
-
-" N key: go to the start of the line
-noremap <silent> N 0
-" I key: go to the end of the line
-noremap <silent> I $
-
-" Faster in-line navigation
-noremap W 5w
-noremap B 5b
-
-" set h (same as n, cursor left) to 'end of word'
-noremap h e
-
-" Ctrl + U or E will move up/down the view port without moving the cursor
-noremap <C-U> 5<C-y>
-noremap <C-E> 5<C-e>
-
 
 " ===
 " === Window management
 " ===
 " Use <space> + new arrow keys for moving the cursor around windows
 noremap <LEADER>w <C-w>w
-noremap <LEADER>u <C-w>k
-noremap <LEADER>e <C-w>j
-noremap <LEADER>n <C-w>h
-noremap <LEADER>i <C-w>l
+noremap <LEADER>k <C-w>k
+noremap <LEADER>j <C-w>j
+noremap <LEADER>h <C-w>h
+noremap <LEADER>l <C-w>l
 
 " Disabling the default s key
 noremap s <nop>
 
 " split the screens to up (horizontal), down (horizontal), left (vertical), right (vertical)
-noremap su :set nosplitbelow<CR>:split<CR>:set splitbelow<CR>
-noremap se :set splitbelow<CR>:split<CR>
-noremap sn :set nosplitright<CR>:vsplit<CR>:set splitright<CR>
-noremap si :set splitright<CR>:vsplit<CR>
+noremap sk :set nosplitbelow<CR>:split<CR>:set splitbelow<CR>
+noremap sj :set splitbelow<CR>:split<CR>
+noremap sh :set nosplitright<CR>:vsplit<CR>:set splitright<CR>
+noremap sl :set splitright<CR>:vsplit<CR>
+" Place the two screens up and down
+noremap sh <C-w>t<C-w>K
+" Place the two screens side by side
+noremap sv <C-w>t<C-w>H
 
 " Resize splits with arrow keys
 noremap <up> :res +5<CR>
@@ -206,28 +177,30 @@ noremap <down> :res -5<CR>
 noremap <left> :vertical resize-5<CR>
 noremap <right> :vertical resize+5<CR>
 
-" Place the two screens up and down
-noremap sh <C-w>t<C-w>K
-" Place the two screens side by side
-noremap sv <C-w>t<C-w>H
-
 " Rotate screens
 noremap srh <C-w>b<C-w>K
 noremap srv <C-w>b<C-w>H
 
-
 " ===
 " === Tab management
 " ===
-" Create a new tab with tu
-noremap tu :tabe<CR>
-" Move around tabs with tn and ti
-noremap tn :-tabnext<CR>
-noremap ti :+tabnext<CR>
-" Move the tabs with tmn and tmi
-noremap tmn :-tabmove<CR>
-noremap tmi :+tabmove<CR>
+" Create a new tab with tn
+noremap tn :tabe<CR>
 
+" close tab
+noremap tc :tabc<CR>
+noremap to :tabo<CR>
+
+" Move around tabs 
+noremap tl :+tabnext<CR>
+noremap th :+tabnext<CR>
+
+" ===
+" === Buffer management
+" ===
+" Move around buffers
+noremap <C-L> :bn<CR>
+noremap <C-H> :bp<CR>
 
 " ===
 " === Markdown Settings
@@ -237,11 +210,9 @@ source ~/.config/nvim/snippits.vim
 " auto spell
 autocmd BufRead,BufNewFile *.md setlocal spell
 
-
 " ===
 " === Other useful stuff
 " ===
-
 " Opening a terminal window
 noremap <LEADER>/ :set splitbelow<CR>:sp<CR>:term<CR>
 
@@ -254,7 +225,7 @@ noremap <C-x> ea<C-x>s
 inoremap <C-x> <Esc>ea<C-x>s
 
 " Press ` to change case (instead of ~)
-noremap ` ~
+"noremap ` ~
 
 noremap <C-c> zz
 
@@ -262,10 +233,10 @@ noremap <C-c> zz
 autocmd BufEnter * silent! lcd %:p:h
 
 " Call figlet
-noremap tx :r !figlet 
+"noremap tx :r !figlet 
 
 " Compile function
-noremap r :call CompileRunGcc()<CR>
+noremap <LEADER>r :call CompileRunGcc()<CR>
 func! CompileRunGcc()
 	exec "w"
 	if &filetype == 'c'
@@ -273,7 +244,7 @@ func! CompileRunGcc()
 		exec "!time ./%<"
 	elseif &filetype == 'cpp'
 		set splitbelow
-		exec "!g++ -std=c++11 % -Wall -o %<"
+		exec "!g++ -std=c++17 % -Wall -o %<"
 		:sp
 		:res -15
 		:term ./%<
@@ -300,20 +271,16 @@ func! CompileRunGcc()
 	endif
 endfunc
 
-
 " ===
 " === Install Plugins with Vim-Plug
 " ===
 
 call plug#begin('~/.config/nvim/plugged')
 
-" Testing my own plugin
-Plug 'theniceboy/vim-calc'
-
 " Pretty Dress
-"Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline'
 Plug 'theniceboy/eleline.vim'
-"Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'bling/vim-bufferline'
 "Plug 'liuchengxu/space-vim-theme'
 "Plug 'morhetz/gruvbox'
@@ -363,27 +330,25 @@ Plug 'lervag/vimtex'
 
 " HTML, CSS, JavaScript, PHP, JSON, etc.
 Plug 'elzr/vim-json'
-Plug 'hail2u/vim-css3-syntax'
-Plug 'spf13/PIV', { 'for' :['php', 'vim-plug'] }
-Plug 'gko/vim-coloresque', { 'for': ['vim-plug', 'php', 'html', 'javascript', 'css', 'less'] }
-Plug 'pangloss/vim-javascript' ", { 'for' :['javascript', 'vim-plug'] }
-Plug 'jelera/vim-javascript-syntax'
+"Plug 'hail2u/vim-css3-syntax'
+"Plug 'spf13/PIV', { 'for' :['php', 'vim-plug'] }
+"Plug 'gko/vim-coloresque', { 'for': ['vim-plug', 'php', 'html', 'javascript', 'css', 'less'] }
+"Plug 'pangloss/vim-javascript' ", { 'for' :['javascript', 'vim-plug'] }
+"Plug 'jelera/vim-javascript-syntax'
 
-" Go
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " Python
 "Plug 'vim-scripts/indentpython.vim', { 'for' :['python', 'vim-plug'] }
-Plug 'Vimjas/vim-python-pep8-indent', { 'for' :['python', 'vim-plug'] }
-Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
+"Plug 'Vimjas/vim-python-pep8-indent', { 'for' :['python', 'vim-plug'] }
+"Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
 "Plug 'plytophogy/vim-virtualenv', { 'for' :['python', 'vim-plug'] }
-Plug 'tweekmonster/braceless.vim'
+"Plug 'tweekmonster/braceless.vim'
 "Plug 'Yggdroot/indentLine', { 'for': ['vim-plug', 'python'] }
 
 " Markdown
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install_sync() }, 'for' :['markdown', 'vim-plug'] }
-Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
-Plug 'dkarter/bullets.vim', { 'for' :['markdown', 'vim-plug'] }
+"Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install_sync() }, 'for' :['markdown', 'vim-plug'] }
+"Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
+"Plug 'dkarter/bullets.vim', { 'for' :['markdown', 'vim-plug'] }
 
 " For general writing
 Plug 'reedes/vim-wordy'
@@ -420,6 +385,15 @@ Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'kana/vim-textobj-user'
 Plug 'roxma/nvim-yarp'
 Plug 'rbgrouleff/bclose.vim' " For ranger.vim
+
+" lsp base highlight for c++
+Plug 'arakashic/chromatica.nvim' " highlight based on clang
+Plug 'jackguo380/vim-lsp-cxx-highlight' " highlight based on ccls
+
+" cpp-mode
+Plug 'chxuan/cpp-mode'
+Plug 'chxuan/tagbar'
+Plug 'tpope/vim-commentary'
 
 call plug#end()
 
@@ -478,31 +452,9 @@ endfunc
 " ===
 " === Airline
 " ===
-"let g:airline_theme='dracula'
-"let g:airline#extensions#coc#enabled = 0
-"let g:airline#extensions#branch#enabled = 0
-"let g:airline#extensions#tabline#enabled = 0
-"let g:airline#extensions#tabline#formatter = 'unique_tail'
-"let g:airline_powerline_fonts = 1
-"let g:airline#extensions#tabline#show_buffers = 0
-"let g:airline_left_sep = ''
-"let g:airline_right_sep = ''
-"let g:airline_mode_map = {
-			"\ '__' : '-',
-			"\ 'n'	: 'Nor',
-			"\ 'i'	: 'Ins',
-			"\ 'R'	: 'Rpl',
-			"\ 'c'	: 'Cmd',
-			"\ 'v'	: 'Vis',
-			"\ 'V'	: 'Vli',
-			"\ '' : 'Vbl',
-			"\ 's'	: 'S',
-			"\ 'S'	: 'S',
-			"\ '' : 'S',
-			"\ }
-
-let g:airline_powerline_fonts = 0
-
+let g:airline#extensions#tabline#enabled=1
+let g:airline#extensions#tabline#buffer_nr_show=1
+let g:airline#extensions#tabline#formatter ='unique_tail'
 
 " ===
 " === NERDTree
@@ -527,68 +479,100 @@ let NERDTreeMapToggleHidden = "zh"
 " == NERDTree-git
 " ==
 let g:NERDTreeIndicatorMapCustom = {
-		\ "Modified"	: "✹",
-		\ "Staged"		: "✚",
-		\ "Untracked" : "✭",
-		\ "Renamed"	 : "➜",
+		\ "Modified"	: "M",
+		\ "Staged"		: "S",
+		\ "Untracked" : "U",
+		\ "Renamed"	 : "R",
 		\ "Unmerged"	: "═",
-		\ "Deleted"	 : "✖",
-		\ "Dirty"		 : "✗",
-		\ "Clean"		 : "✔︎",
+		\ "Deleted"	 : "D",
+		\ "Dirty"		 : "CR",
+		\ "Clean"		 : "C",
 		\ "Unknown"	 : "?"
 		\ }
 
 
-" ===
-" === NCM2
-" ===
-"inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-"inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-"inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>": "\<CR>")
-"autocmd BufEnter * call ncm2#enable_for_buffer()
-"set completeopt=noinsert,menuone,noselect
-"let ncm2#popup_delay = 5
-"let g:ncm2#matcher = "substrfuzzy"
-"let g:ncm2_jedi#python_version = 3
-"let g:ncm2#match_highlight = 'bold'
-"let g:jedi#auto_initialization = 1
-""let g:jedi#completion_enabled = 0
-""let g:jedi#auto_vim_configuration = 0
-""let g:jedi#smart_auto_mapping = 0
-"let g:jedi#popup_on_dot = 1
-"let g:jedi#completion_command = ""
-"let g:jedi#show_call_signatures = "1"
+" ===========================================================================
+" python
+let g:python3_host_prog='/usr/local/bin/python3.7'
 
 
-" ===
+" ===========================================================================
+" === highlight
+" === chromatica.nvim 
+"let g:chromatica#libclang_path='/home/I512993/Downloads/clang/lib'
+"let g:chromatica#enable_at_startup=1
+"let g:chromatica#global_args=['-isystem/home/I512993/Downloads/clang/include']
+
+" === highlight
+" ===vim-lsp-cxx-highlight
+let g:lsp_cxx_hl_use_text_props=1
+" ===========================================================================
 " === coc
 " ===
-" fix the most annoying bug that coc has
-"autocmd WinEnter * call timer_start(1000, { tid -> execute('unmap if')})
-"silent! autocmd BufEnter * silent! call silent! timer_start(600, { tid -> execute('unmap if')})
-"silent! autocmd WinEnter * silent! call silent! timer_start(600, { tid -> execute('unmap if')})
-silent! au BufEnter,BufRead,BufNewFile * silent! unmap if
-"au TextChangedI * GitGutter
-" Installing plugins
-let g:coc_global_extensions = ['coc-python', 'coc-vimlsp', 'coc-emmet', 'coc-html', 'coc-json', 'coc-css', 'coc-tsserver', 'coc-yank', 'coc-lists', 'coc-gitignore', 'coc-go', 'coc-omnisharp']
-" use <tab> for trigger completion and navigate to the next complete item
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-function! s:check_back_space() abort
-	let col = col('.') - 1
-	return !col || getline('.')[col - 1]	=~ '\s'
-endfunction
-inoremap <silent><expr> <Tab>
-			\ pumvisible() ? "\<C-n>" :
-			\ <SID>check_back_space() ? "\<Tab>" :
-			\ coc#refresh()
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+	let g:coc_global_extensions = ['coc-python', 'coc-git', 'coc-vimlsp', 'coc-json', 
+		 \ 'coc-yank', 'coc-highlight', 'coc-lists', 'coc-gitignore', 'coc-omnisharp']
 " Useful commands
-nnoremap <silent> <space>y	:<C-u>CocList -A --normal yank<cr>
-nnoremap <silent> gd <Plug>(coc-definition)
-nnoremap <silent> gy <Plug>(coc-type-definition)
-nnoremap <silent> gi <Plug>(coc-implementation)
-nnoremap <silent> gr <Plug>(coc-references)
-nnoremap <leader>rn <Plug>(coc-rename)
+nmap <silent> <space>y	:<C-u>CocList -A --normal yank<cr>
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+nmap <leader>rn <Plug>(coc-rename)
+
+
+
+" use <tab> for trigger completion and navigate to the next complete item
+ function! s:check_back_space() abort
+   let col = col('.') - 1
+     return !col || getline('.')[col - 1]  =~ '\s'
+     endfunction
+
+     inoremap <silent><expr> <Tab>
+           \ pumvisible() ? "\<C-n>" :
+                 \ <SID>check_back_space() ? "\<Tab>" :
+                       \ coc#refresh()
+
+" Use gh to show documentation in preview window
+nnoremap <silent> gh :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+	  if (index(['vim','help'], &filetype) >= 0)
+			    execute 'h '.expand('<cword>')
+					  else
+							    call CocAction('doHover')
+									  endif
+									endfunction
+
+" Remap for format selected region
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+augroup mygroup
+	autocmd!
+	" Setup formatexpr specified filetype(s).
+	autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end 
+
+" ===========================================================================
+" cpp-mode
+"nnoremap <leader>c :CopyCode<CR>
+"nnoremap <leader>v :PasteCode<CR>
+nnoremap <silent><m-o>     :Switch<CR>
+nnoremap ==        :FormatFunParam<CR>
+
+
+" tagbar
+let g:tagbar_width = 30
+nnoremap <silent> <leader>t :TagbarToggle<CR>
+inoremap <silent> <leader>t <esc> :TagbarToggle<CR>
+
+
+
+
+
+
+
+
 
 
 " ===
@@ -684,7 +668,7 @@ let g:SignatureMap = {
 " ===
 " === Undotree
 " ===
-noremap L :UndotreeToggle<CR>
+noremap <leader>u :UndotreeToggle<CR>
 let g:undotree_DiffAutoOpen = 1
 let g:undotree_SetFocusWhenToggle = 1
 let g:undotree_ShortIndicators = 1
@@ -721,17 +705,7 @@ let g:startify_lists = [
 " ===
 " === Far.vim
 " ===
-nnoremap <silent> <LEADER>f :F	%<left><left>
-
-" ===
-" === vim-calc
-" ===
-noremap <LEADER>a :call Calc()<CR>
-" Testing
-"if !empty(glob('~/Github/vim-calc/vim-calc.vim'))
-	"source ~/Github/vim-calc/vim-calc.vim
-"endif
-
+"nnoremap <silent> <LEADER>f :F	%<left><left>
 
 " ===
 " === emmet
@@ -775,7 +749,7 @@ nnoremap R :Ranger<CR>
 " ===
 " === fzf-gitignore
 " ===
-noremap <LEADER>gi <Plug>(fzf-gitignore)
+"noremap <LEADER>gi <Plug>(fzf-gitignore)
 
 
 " ===
@@ -796,8 +770,8 @@ let g:UltiSnipsJumpBackwardTrigger="<c-n>"
 " === vimtex
 " ===
 "let g:vimtex_view_method = ''
-let g:vimtex_view_general_viewer = 'llpp'
-let maplocalleader=' '
+"let g:vimtex_view_general_viewer = 'llpp'
+"let maplocalleader=' '
 
 
 " ===
@@ -805,38 +779,10 @@ let maplocalleader=' '
 " ===
 nnoremap <c-f> :FlyGrep<CR>
 
-
 " ===
 " === GV
 " ===
-nnoremap gv :GV<CR>
-
-
-" ===
-" === vim-calendar
-" ===
-noremap \c :Calendar -position=here<CR>
-noremap \\ :Calendar -view=clock -position=here<CR>
-let g:calendar_google_calendar = 1
-let g:calendar_google_task = 1
-augroup calendar-mappings
-	autocmd!
-	" diamond cursor
-	autocmd FileType calendar nmap <buffer> u <Plug>(calendar_up)
-	autocmd FileType calendar nmap <buffer> n <Plug>(calendar_left)
-	autocmd FileType calendar nmap <buffer> e <Plug>(calendar_down)
-	autocmd FileType calendar nmap <buffer> i <Plug>(calendar_right)
-	autocmd FileType calendar nmap <buffer> <c-u> <Plug>(calendar_move_up)
-	autocmd FileType calendar nmap <buffer> <c-n> <Plug>(calendar_move_left)
-	autocmd FileType calendar nmap <buffer> <c-e> <Plug>(calendar_move_down)
-	autocmd FileType calendar nmap <buffer> <c-i> <Plug>(calendar_move_right)
-	autocmd FileType calendar nmap <buffer> k <Plug>(calendar_start_insert)
-	autocmd FileType calendar nmap <buffer> K <Plug>(calendar_start_insert_head)
-	" unmap <C-n>, <C-p> for other plugins
-	autocmd FileType calendar nunmap <buffer> <C-n>
-	autocmd FileType calendar nunmap <buffer> <C-p>
-augroup END
-
+nnoremap <LEADER>gv :GV<CR>
 
 " ===
 " === Anzu
@@ -846,16 +792,6 @@ noremap - <Plug>(anzu-N-with-echo)
 noremap * <Plug>(anzu-star-with-echo)
 noremap # <Plug>(anzu-sharp-with-echo)
 set statusline=%{anzu#search_status()}
-
-
-" ===
-" === vim-go
-" ===
-let g:go_textobj_enabled = 0
-"let g:go_def_mapping_enabled = 1
-noremap <LEADER>q <C-w>j:q<CR>
-
-
 
 " ===================== End of Plugin Settings =====================
 
