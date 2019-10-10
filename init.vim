@@ -30,14 +30,12 @@ endif
 "set clipboard=unnamed
 let &t_ut=''
 
-"auto switch dirs
-set autochdir
+set autochdir "auto switch dirs
 
 
 " ===
 " === Editor behavior
 " ===
-set nocompatible
 set number
 set relativenumber
 set cursorline
@@ -56,7 +54,6 @@ set noswapfile
 set autoread
 set autowrite
 set confirm
-
 
 set list
 set listchars=tab:▸\ ,trail:▫
@@ -114,9 +111,8 @@ tnoremap <C-N> <C-\><C-N>
 " ===
 " === Basic Mappings
 " ===
-" Set <LEADER> as <SPACE>, ; as :
+" Set <LEADER> as <SPACE>
 let mapleader=" "
-"noremap ; :
 
 " Save & quit
 noremap Q :q<CR>
@@ -131,19 +127,8 @@ noremap <LEADER>st :Startify<CR>
 " Map jj to ESC
 inoremap jj <ESC>
 
-" Copy to system clipboard
-vnoremap Y :w !xclip -i -sel c<CR>
-
-" Search
+" Search  stop highlighting search result
 noremap <LEADER><CR> :nohlsearch<CR>
-"noremap = nzz
-"noremap - Nzz
-
-" Adjacent duplicate words
-"noremap <LEADER>dw /\(\<\w\+\>\)\_s*\1
-
-" Space to Tab
-"noremap <LEADER>tt :%s/  /\t/g
 
 " Folding
 noremap <silent> <LEADER>o za
@@ -201,6 +186,7 @@ noremap th :+tabnext<CR>
 " Move around buffers
 noremap <C-L> :bn<CR>
 noremap <C-H> :bp<CR>
+noremap <C-C> :Bclose<CR>
 
 " ===
 " === Markdown Settings
@@ -224,16 +210,11 @@ noremap <LEADER>sc :set spell!<CR>
 noremap <C-x> ea<C-x>s
 inoremap <C-x> <Esc>ea<C-x>s
 
-" Press ` to change case (instead of ~)
-"noremap ` ~
-
-noremap <C-c> zz
-
 " Auto change directory to current dir
 autocmd BufEnter * silent! lcd %:p:h
 
-" Call figlet
-"noremap tx :r !figlet 
+" using setting after save
+" autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
 " Compile function
 noremap <LEADER>r :call CompileRunGcc()<CR>
@@ -325,9 +306,6 @@ Plug 'fszymanski/fzf-gitignore', { 'do': ':UpdateRemotePlugins' }
 Plug 'tpope/vim-fugitive' " gv dependency
 Plug 'junegunn/gv.vim' " gv (normal) to show git log
 
-" Tex
-Plug 'lervag/vimtex'
-
 " HTML, CSS, JavaScript, PHP, JSON, etc.
 Plug 'elzr/vim-json'
 "Plug 'hail2u/vim-css3-syntax'
@@ -335,20 +313,6 @@ Plug 'elzr/vim-json'
 "Plug 'gko/vim-coloresque', { 'for': ['vim-plug', 'php', 'html', 'javascript', 'css', 'less'] }
 "Plug 'pangloss/vim-javascript' ", { 'for' :['javascript', 'vim-plug'] }
 "Plug 'jelera/vim-javascript-syntax'
-
-
-" Python
-"Plug 'vim-scripts/indentpython.vim', { 'for' :['python', 'vim-plug'] }
-"Plug 'Vimjas/vim-python-pep8-indent', { 'for' :['python', 'vim-plug'] }
-"Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
-"Plug 'plytophogy/vim-virtualenv', { 'for' :['python', 'vim-plug'] }
-"Plug 'tweekmonster/braceless.vim'
-"Plug 'Yggdroot/indentLine', { 'for': ['vim-plug', 'python'] }
-
-" Markdown
-"Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install_sync() }, 'for' :['markdown', 'vim-plug'] }
-"Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
-"Plug 'dkarter/bullets.vim', { 'for' :['markdown', 'vim-plug'] }
 
 " For general writing
 Plug 'reedes/vim-wordy'
@@ -360,7 +324,7 @@ Plug 'kshenoy/vim-signature'
 " Find & Replace
 Plug 'wsdjeg/FlyGrep.vim' " Ctrl+f (normal) to find file content
 Plug 'brooth/far.vim', { 'on': ['F', 'Far', 'Fardo'] }
-Plug 'osyo-manga/vim-anzu'
+" Plug 'osyo-manga/vim-anzu'
 
 " Other useful utilities
 Plug 'jiangmiao/auto-pairs'
@@ -558,22 +522,12 @@ augroup end
 "nnoremap <leader>c :CopyCode<CR>
 "nnoremap <leader>v :PasteCode<CR>
 nnoremap <silent><m-o>     :Switch<CR>
-nnoremap ==        :FormatFunParam<CR>
-
-
+"nnoremap ==        :FormatFunParam<CR>
+"
 " tagbar
 let g:tagbar_width = 30
 nnoremap <silent> <leader>t :TagbarToggle<CR>
-inoremap <silent> <leader>t <esc> :TagbarToggle<CR>
-
-
-
-
-
-
-
-
-
+" inoremap <silent> <leader>t <esc> :TagbarToggle<CR>
 
 " ===
 " === indentLine
@@ -585,57 +539,10 @@ silent! unmap <LEADER>ig
 autocmd WinEnter * silent! unmap <LEADER>ig
 let g:indentLine_fileTypeExclude = ['tex', 'markdown']
 
-
-" ===
-" === some error checking
-" ===
-" I ain't need no ale!
-
-
-" ===
-" === MarkdownPreview
-" ===
-let g:mkdp_auto_start = 0
-let g:mkdp_auto_close = 1
-let g:mkdp_refresh_slow = 0
-let g:mkdp_command_for_global = 0
-let g:mkdp_open_to_the_world = 0
-let g:mkdp_open_ip = ''
-let g:mkdp_echo_preview_url = 0
-let g:mkdp_browserfunc = ''
-let g:mkdp_preview_options = {
-		\ 'mkit': {},
-		\ 'katex': {},
-		\ 'uml': {},
-		\ 'maid': {},
-		\ 'disable_sync_scroll': 0,
-		\ 'sync_scroll_type': 'middle',
-		\ 'hide_yaml_meta': 1
-		\ }
-let g:mkdp_markdown_css = ''
-let g:mkdp_highlight_css = ''
-let g:mkdp_port = ''
-let g:mkdp_page_title = '「${name}」'
-
-
-" ===
-" === Python-syntax
-" ===
-let g:python_highlight_all = 1
-" let g:python_slow_sync = 0
-
-
 " ===
 " === vim-table-mode
 " ===
 noremap <LEADER>tm :TableModeToggle<CR>
-
-
-" ===
-" === FZF
-" ===
-noremap <C-p> :FZF<CR>
-
 
 " ===
 " === vim-signature
@@ -674,38 +581,12 @@ let g:undotree_SetFocusWhenToggle = 1
 let g:undotree_ShortIndicators = 1
 
 
-" ==
-" == vim-multiple-cursor
-" ==
-let g:multi_cursor_use_default_mapping=0
-let g:multi_cursor_start_word_key			= '<c-k>'
-let g:multi_cursor_select_all_word_key = '<a-k>'
-let g:multi_cursor_start_key					 = 'g<c-k>'
-let g:multi_cursor_select_all_key			= 'g<a-k>'
-let g:multi_cursor_next_key						= '<c-k>'
-let g:multi_cursor_prev_key						= '<c-p>'
-let g:multi_cursor_skip_key						= '<C-x>'
-let g:multi_cursor_quit_key						= '<Esc>'
-
-
-" ==
-" == thesaurus_query
-" ==
-noremap <LEADER>th :ThesaurusQueryLookupCurrentWord<CR>
-
-
 " Startify
 let g:startify_lists = [
 			\ { 'type': 'files',		 'header': ['	 MRU']						},
 			\ { 'type': 'bookmarks', 'header': ['	 Bookmarks']			},
 			\ { 'type': 'commands',	'header': ['	 Commands']			 },
 			\ ]
-
-
-" ===
-" === Far.vim
-" ===
-"nnoremap <silent> <LEADER>f :F	%<left><left>
 
 " ===
 " === emmet
@@ -717,7 +598,6 @@ let g:user_emmet_leader_key='<c-]'
 " === Bullets.vim
 " ===
 let g:bullets_set_mappings = 0
-
 
 " ===
 " === Vista.vim
@@ -733,7 +613,7 @@ autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
 " e.g., more compact: ["▸ ", ""]
 let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
-"let g:vista_default_executive = 'ctags'
+let g:vista_default_executive = 'coc'
 " To enable fzf's preview window set g:vista_fzf_preview.
 " The elements of g:vista_fzf_preview will be passed as arguments to fzf#vim#with_preview()
 " For example:
@@ -745,13 +625,6 @@ let g:vista_fzf_preview = ['right:50%']
 " ===
 nnoremap R :Ranger<CR>
 
-
-" ===
-" === fzf-gitignore
-" ===
-"noremap <LEADER>gi <Plug>(fzf-gitignore)
-
-
 " ===
 " === Ultisnips
 " ===
@@ -760,19 +633,6 @@ inoremap <c-n> <nop>
 let g:UltiSnipsExpandTrigger="<c-e>"
 let g:UltiSnipsJumpForwardTrigger="<c-e>"
 let g:UltiSnipsJumpBackwardTrigger="<c-n>"
-
-
-" vim-latex-live-preview
-"let g:livepreview_previewer = "zathura"
-
-
-" ===
-" === vimtex
-" ===
-"let g:vimtex_view_method = ''
-"let g:vimtex_view_general_viewer = 'llpp'
-"let maplocalleader=' '
-
 
 " ===
 " === FlyGrep
@@ -784,14 +644,6 @@ nnoremap <c-f> :FlyGrep<CR>
 " ===
 nnoremap <LEADER>gv :GV<CR>
 
-" ===
-" === Anzu
-" ===
-noremap = <Plug>(anzu-n-with-echo)
-noremap - <Plug>(anzu-N-with-echo)
-noremap * <Plug>(anzu-star-with-echo)
-noremap # <Plug>(anzu-sharp-with-echo)
-set statusline=%{anzu#search_status()}
 
 " ===================== End of Plugin Settings =====================
 
