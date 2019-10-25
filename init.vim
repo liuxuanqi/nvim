@@ -482,9 +482,8 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 nmap <leader>rn <Plug>(coc-rename)
-
-
-
+inoremap <silent><expr> <c-space> coc#refresh()	" force autocomplete
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
 " use <tab> for trigger completion and navigate to the next complete item
  function! s:check_back_space() abort
    let col = col('.') - 1
