@@ -39,7 +39,7 @@ set autochdir "auto switch dirs
 set number
 set relativenumber
 set cursorline
-set noexpandtab
+set expandtab
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
@@ -522,7 +522,10 @@ augroup end
 "nnoremap <leader>v :PasteCode<CR>
 nnoremap <silent><m-o>     :Switch<CR>
 "nnoremap ==        :FormatFunParam<CR>
-"
+
+" vim-commentary
+autocmd FileType c,cpp,java setlocal commentstring=//\ %s
+
 " tagbar
 let g:tagbar_width = 30
 nnoremap <silent> <leader>t :TagbarToggle<CR>
@@ -582,9 +585,9 @@ let g:undotree_ShortIndicators = 1
 
 " Startify
 let g:startify_lists = [
-			\ { 'type': 'files',		 'header': ['	 MRU']						},
-			\ { 'type': 'bookmarks', 'header': ['	 Bookmarks']			},
-			\ { 'type': 'commands',	'header': ['	 Commands']			 },
+			\ { 'type': 'files',		 'header': ['	 MRU']	},
+			\ { 'type': 'bookmarks', 'header': ['	 Bookmarks']},
+			\ { 'type': 'commands',	'header': ['	 Commands']	},
 			\ ]
 
 " ===
