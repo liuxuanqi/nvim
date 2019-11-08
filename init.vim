@@ -273,7 +273,7 @@ Plug 'ajmwagar/vim-deus'
 
 " File navigation
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-Plug 'Xuyuanp/nerdtree-git-plugin'
+" Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'junegunn/fzf.vim'
 "Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
 Plug 'junegunn/fzf'
@@ -442,17 +442,17 @@ let NERDTreeMapToggleHidden = "zh"
 " ==
 " == NERDTree-git
 " ==
-let g:NERDTreeIndicatorMapCustom = {
-		\ "Modified"	: "M",
-		\ "Staged"		: "S",
-		\ "Untracked" : "U",
-		\ "Renamed"	 : "R",
-		\ "Unmerged"	: "═",
-		\ "Deleted"	 : "D",
-		\ "Dirty"		 : "CR",
-		\ "Clean"		 : "C",
-		\ "Unknown"	 : "?"
-		\ }
+" let g:NERDTreeIndicatorMapCustom = {
+" 		\ "Modified"	: "M",
+" 		\ "Staged"		: "S",
+" 		\ "Untracked" : "U",
+" 		\ "Renamed"	 : "R",
+" 		\ "Unmerged"	: "═",
+" 		\ "Deleted"	 : "D",
+" 		\ "Dirty"		 : "CR",
+" 		\ "Clean"		 : "C",
+" 		\ "Unknown"	 : "?"
+" 		\ }
 
 
 " ===========================================================================
