@@ -128,6 +128,7 @@ noremap <LEADER>st :Startify<CR>
 inoremap jj <ESC>
 
 " Search  stop highlighting search result
+" type /<CR> to stop highlighting
 noremap <LEADER><CR> :nohlsearch<CR>
 
 " Folding
@@ -631,10 +632,10 @@ nnoremap R :Ranger<CR>
 " === Ultisnips
 " ===
 " let g:tex_flavor = "latex"
-" inoremap <c-n> <nop>
-" let g:UltiSnipsExpandTrigger="<c-e>"
-" let g:UltiSnipsJumpForwardTrigger="<c-e>"
-" let g:UltiSnipsJumpBackwardTrigger="<c-n>"
+inoremap <c-n> <nop>
+let g:UltiSnipsExpandTrigger="<c-e>"
+let g:UltiSnipsJumpForwardTrigger="<c-e>"
+let g:UltiSnipsJumpBackwardTrigger="<c-n>"
 
 " ===
 " === FlyGrep
