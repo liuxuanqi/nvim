@@ -145,17 +145,17 @@ noremap <LEADER>h <C-w>h
 noremap <LEADER>l <C-w>l
 
 " Disabling the default s key
-noremap s <nop>
+" noremap s <nop>
 
 " split the screens to up (horizontal), down (horizontal), left (vertical), right (vertical)
-noremap sk :set nosplitbelow<CR>:split<CR>:set splitbelow<CR>
-noremap sj :set splitbelow<CR>:split<CR>
-noremap sh :set nosplitright<CR>:vsplit<CR>:set splitright<CR>
-noremap sl :set splitright<CR>:vsplit<CR>
+noremap <leader>sk :set nosplitbelow<CR>:split<CR>:set splitbelow<CR>
+noremap <leader>sj :set splitbelow<CR>:split<CR>
+noremap <leader>sh :set nosplitright<CR>:vsplit<CR>:set splitright<CR>
+noremap <leader>sl :set splitright<CR>:vsplit<CR>
 " Place the two screens up and down
-noremap sh <C-w>t<C-w>K
+noremap <leader>sh <C-w>t<C-w>K
 " Place the two screens side by side
-noremap sv <C-w>t<C-w>H
+noremap <leader>sv <C-w>t<C-w>H
 
 " Resize splits with arrow keys
 noremap <up> :res +5<CR>
@@ -164,22 +164,20 @@ noremap <left> :vertical resize-5<CR>
 noremap <right> :vertical resize+5<CR>
 
 " Rotate screens
-noremap srh <C-w>b<C-w>K
-noremap srv <C-w>b<C-w>H
+noremap <leader>srh <C-w>b<C-w>K
+noremap <leader>srv <C-w>b<C-w>H
 
 " ===
 " === Tab management
 " ===
 " Create a new tab with tn
-noremap tn :tabe<CR>
+noremap <leader>tn :tabe<CR>
 
 " close tab
-noremap tc :tabc<CR>
-noremap to :tabo<CR>
-
-" Move around tabs 
-noremap tl :+tabnext<CR>
-noremap th :+tabnext<CR>
+noremap <leader>tc :tabc<CR>
+noremap <leader>to :tabo<CR>
+noremap <leader>tl :+tabnext<CR>
+noremap <leader>th :+tabnext<CR>
 
 " ===
 " === Buffer management
@@ -204,18 +202,18 @@ autocmd BufRead,BufNewFile *.md setlocal spell
 noremap <LEADER>/ :set splitbelow<CR>:sp<CR>:term<CR>
 
 " Press space twice to jump to the next '<++>' and edit it
-noremap <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4i
+" noremap <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4i
 
 " Spelling Check with <space>sc
-noremap <LEADER>sc :set spell!<CR>
-noremap <C-x> ea<C-x>s
-inoremap <C-x> <Esc>ea<C-x>s
+" noremap <LEADER>sc :set spell!<CR>
+" noremap <C-x> ea<C-x>s
+" inoremap <C-x> <Esc>ea<C-x>s
 
 " Auto change directory to current dir
 autocmd BufEnter * silent! lcd %:p:h
 
 " using setting after save
-" autocmd BufWritePost $MYVIMRC source $MYVIMRC
+ autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
 " Compile function
 noremap <LEADER>r :call CompileRunGcc()<CR>
@@ -485,6 +483,9 @@ nmap <silent> gr <Plug>(coc-references)
 nmap <leader>rn <Plug>(coc-rename)
 inoremap <silent><expr> <c-space> coc#refresh()	" force autocomplete
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
+" inoremap <expr> <Tab> pumvisible() ? "\<C-y>" : "\<CR>"
+
+
 " use <tab> for trigger completion and navigate to the next complete item
  function! s:check_back_space() abort
    let col = col('.') - 1
