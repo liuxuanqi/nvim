@@ -326,7 +326,7 @@ Plug 'brooth/far.vim', { 'on': ['F', 'Far', 'Fardo'] }
 " Plug 'osyo-manga/vim-anzu'
 
 " Other useful utilities
-Plug 'jiangmiao/auto-pairs'
+" Plug 'jiangmiao/auto-pairs'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-surround' " type ysks' to wrap the word with '' or type cs'` to change 'word' to `word`
 Plug 'godlygeek/tabular' " type ;Tabularize /= to align the =
@@ -473,7 +473,7 @@ let g:lsp_cxx_hl_use_text_props=1
 " === coc
 " ===
 	let g:coc_global_extensions = ['coc-python', 'coc-git', 'coc-vimlsp', 'coc-json', 
-		 \ 'coc-yank', 'coc-highlight', 'coc-lists', 'coc-gitignore', 'coc-omnisharp']
+		 \ 'coc-yank', 'coc-highlight', 'coc-pairs', 'coc-list', 'coc-gitignore', 'coc-omnisharp']
 " Useful commands
 nmap <silent> <space>y	:<C-u>CocList -A --normal yank<cr>
 nmap <silent> gd <Plug>(coc-definition)
@@ -517,6 +517,28 @@ augroup mygroup
   " Update signature help on jump placeholder
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end 
+
+" Using CocList
+" Manage extensions
+nnoremap <silent> <leader>me  :<C-u>CocList extensions<cr>
+" Show commands
+nnoremap <silent> <leader>fc  :<C-u>CocList commands<cr>
+
+" Find symbol of current document
+nnoremap <silent> <leader>ff  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <leader>fd  :<C-u>CocList -I symbols<cr>
+" Show all diagnostics
+nnoremap <silent> <leader>fe  :<C-u>CocList diagnostics<cr>
+
+" Do default action for next item. ?
+nnoremap <silent> <leader>j  :<C-u>CocNext<CR>
+
+" Do default action for previous item.
+nnoremap <silent> <leader>k  :<C-u>CocPrev<CR>
+
+" Resume latest coc list
+nnoremap <silent> <leader>p  :<C-u>CocListReume<CR>
 
 " ===========================================================================
 " cpp-mode
