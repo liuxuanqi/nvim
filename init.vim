@@ -51,6 +51,13 @@ set autoread
 set autowrite
 set confirm
 
+"------------------------------------------------------------------------------
+" coc.nvim related
+set hidden "  TextEdit might fail if not set
+set updatetime=300 "for diagnostics messages
+set signcolumn=yes
+
+
 set list
 set listchars=tab:▸\ ,trail:▫
 set scrolloff=4               "Minimal number of screen lines to keep above and below the cursor.
@@ -455,24 +462,53 @@ let NERDTreeMapToggleHidden = "zh"
 " python
 let g:python3_host_prog='/usr/local/bin/python3.7'
 
-
-" ===========================================================================
-" === highlight
-" === chromatica.nvim 
-"let g:chromatica#libclang_path='/home/I512993/Downloads/clang/lib'
-"let g:chromatica#enable_at_startup=1
-"let g:chromatica#global_args=['-isystem/home/I512993/Downloads/clang/include']
-
 " === highlight
 " ===vim-lsp-cxx-highlight
 let g:lsp_cxx_hl_use_text_props=1
 " ===========================================================================
 " === coc
 " ===
-	let g:coc_global_extensions = ['coc-python', 'coc-git', 'coc-vimlsp', 'coc-json', 'coc-marketplace', 'coc-snippets',
-		 \ 'coc-yank', 'coc-highlight', 'coc-pairs', 'coc-list', 'coc-gitignore', 'coc-omnisharp']
-" Useful commands
-nmap <silent> <space>y	:<C-u>CocList -A --normal yank<cr>
+	let g:coc_global_extensions = ['coc-python', 'coc-git', 'coc-vimlsp', 
+        \'coc-json', 'coc-marketplace', 'coc-snippets', 'coc-yank', 
+        \'coc-highlight', 'coc-pairs', 'coc-list', 'coc-gitignore',
+        \'coc-omnisharp']
+
+" Using CocList
+nnoremap <silent> <leader>me :<C-u>CocList extensions<cr> " Manage extensions
+nnoremap <silent> <leader>mc :<C-u>CocList commands<cr>   " Show commands
+nnoremap <silent> <leader>mk :<C-u>CocList marketplace<cr>" Marketplace
+
+"-----------------------------------------------------------------------------
+" search tools
+nnoremap <silent> <leader>fs :<C-u>CocList outline<cr>   " Find symbol in file
+nnoremap <silent> <leader>fw :<C-u>CocList words<cr>     " Find word in file
+nnoremap <silent> <leader>fd :<C-u>CocList -I symbols<cr>" Find sym in project
+nnoremap <silent> <leader>ff :<C-u>CocList files<cr>     " Find files
+nnoremap <silent> <leader>fe :<C-u>CocList diagnostics<cr> " Show diagnostics
+
+"-----------------------------------------------------------------------------
+" git tools
+nnoremap <silent> <leader>gs :<C-u>CocList gstatus<cr>
+nnoremap <silent> <leader>gh :<C-u>CocList commits<cr>
+nnoremap <silent> <leader>gH :GV<CR>                    " project hist
+nnoremap <silent> <leader>gf :<C-u>CocList bcommits<cr> " buffer  hist
+nnoremap <silent> <leader>gb :<C-u>CocList branches<cr>
+nnoremap <silent> <leader>gv :<C-u>CocList gfiles<cr>
+
+nnoremap <silent> <leader>n  :<C-u>CocNext<CR> " Default action for next item. 
+nnoremap <silent> <leader>p  :<C-u>CocPrev<CR> " Default action for prev item.
+nnoremap <silent> <leader>rr :<C-u>CocListResume<CR> " Resume latest coc list
+
+"------------------------------------------------------------------------------
+" list 
+" nmap <silent> <leader>ll :<C-u>CocList<CR> " CocList 
+" nmap <silent> <leader>b :<C-u>CocList --normal buffers<CR> "List buffers
+nnoremap <silent> <leader>mu :<C-u>CocList mru<CR> " most recent used
+nnoremap <silent> <leader>y	 :<C-u>CocList -A --normal yank<cr>
+
+
+"------------------------------------------------------------------------------
+" lang tool 
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
@@ -480,8 +516,6 @@ nmap <silent> gr <Plug>(coc-references)
 nmap <leader> rn <Plug>(coc-rename)
 inoremap <silent><expr> <c-space> coc#refresh()	" force autocomplete
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
-" inoremap <expr> <Tab> pumvisible() ? "\<C-y>" : "\<CR>"
-
 
 " use <tab> for trigger completion and navigate to the next complete item
  function! s:check_back_space() abort
@@ -515,31 +549,8 @@ augroup mygroup
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end 
 
-" Using CocList
-nnoremap <silent> <leader>me  :<C-u>CocList extensions<cr> " Manage extensions
-nnoremap <silent> <leader>mc  :<C-u>CocList commands<cr>   " Show commands
-nnoremap <silent> <leader>mk  :<C-u>CocList marketplace<cr>" Marketplace
 
-"------------------------------------------------------------------------------
-" search tools
-nnoremap <silent> <leader>fs  :<C-u>CocList outline<cr>     " Find symbol of current document
-nnoremap <silent> <leader>fw  :<C-u>CocList words<cr>     " Find symbol of current document
-nnoremap <silent> <leader>fd  :<C-u>CocList -I symbols<cr>  " Search workspace symols
-nnoremap <silent> <leader>ff  :<C-u>CocList files<cr>       " Find files
-nnoremap <silent> <leader>fe  :<C-u>CocList diagnostics<cr> " Show all diagnostics
 
-"------------------------------------------------------------------------------
-" git tools
-nnoremap <silent> <leader>gs  :<C-u>CocList gstatus<cr>
-nnoremap <silent> <leader>gh  :<C-u>CocList commits<cr>
-nnoremap <silent> <leader>gH  :GV<CR>                    " show project cis in new tab
-nnoremap <silent> <leader>gf  :<C-u>CocList bcommits<cr> " ci of current file
-nnoremap <silent> <leader>gb  :<C-u>CocList branches<cr>
-nnoremap <silent> <leader>gv  :<C-u>CocList gfiles<cr>
-
-nnoremap <silent> <leader>n   :<C-u>CocNext<CR> " Do default action for next item. ?
-nnoremap <silent> <leader>p   :<C-u>CocPrev<CR> " Do default action for previous item.
-nnoremap <silent> <leader>rr  :<C-u>CocListResume<CR> " Resume latest coc list
 
 " ===========================================================================
 " cpp-mode
