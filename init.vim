@@ -323,7 +323,7 @@ Plug 'easymotion/vim-easymotion'
 " Plug 'osyo-manga/vim-anzu'
 
 " Other useful utilities
-Plug 'jiangmiao/auto-pairs'
+" Plug 'jiangmiao/auto-pairs'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-surround' " type ysks' to wrap the word with '' or type cs'` to change 'word' to `word`
 Plug 'godlygeek/tabular' " type ;Tabularize /= to align the =
@@ -469,15 +469,15 @@ let g:lsp_cxx_hl_use_text_props=1
 " ===========================================================================
 " === coc
 " ===
-	let g:coc_global_extensions = ['coc-python', 'coc-git', 'coc-vimlsp', 'coc-json', 
-		 \ 'coc-yank', 'coc-highlight', 'coc-lists', 'coc-gitignore', 'coc-omnisharp']
+	let g:coc_global_extensions = ['coc-python', 'coc-git', 'coc-vimlsp', 'coc-json', 'coc-marketplace', 'coc-snippets',
+		 \ 'coc-yank', 'coc-highlight', 'coc-pairs', 'coc-list', 'coc-gitignore', 'coc-omnisharp']
 " Useful commands
 nmap <silent> <space>y	:<C-u>CocList -A --normal yank<cr>
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-nmap <leader>rn <Plug>(coc-rename)
+nmap <leader> rn <Plug>(coc-rename)
 inoremap <silent><expr> <c-space> coc#refresh()	" force autocomplete
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
 " inoremap <expr> <Tab> pumvisible() ? "\<C-y>" : "\<CR>"
@@ -514,6 +514,32 @@ augroup mygroup
   " Update signature help on jump placeholder
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end 
+
+" Using CocList
+nnoremap <silent> <leader>me  :<C-u>CocList extensions<cr> " Manage extensions
+nnoremap <silent> <leader>mc  :<C-u>CocList commands<cr>   " Show commands
+nnoremap <silent> <leader>mk  :<C-u>CocList marketplace<cr>" Marketplace
+
+"------------------------------------------------------------------------------
+" search tools
+nnoremap <silent> <leader>fs  :<C-u>CocList outline<cr>     " Find symbol of current document
+nnoremap <silent> <leader>fw  :<C-u>CocList words<cr>     " Find symbol of current document
+nnoremap <silent> <leader>fd  :<C-u>CocList -I symbols<cr>  " Search workspace symols
+nnoremap <silent> <leader>ff  :<C-u>CocList files<cr>       " Find files
+nnoremap <silent> <leader>fe  :<C-u>CocList diagnostics<cr> " Show all diagnostics
+
+"------------------------------------------------------------------------------
+" git tools
+nnoremap <silent> <leader>gs  :<C-u>CocList gstatus<cr>
+nnoremap <silent> <leader>gh  :<C-u>CocList commits<cr>
+nnoremap <silent> <leader>gH  :GV<CR>                    " show project cis in new tab
+nnoremap <silent> <leader>gf  :<C-u>CocList bcommits<cr> " ci of current file
+nnoremap <silent> <leader>gb  :<C-u>CocList branches<cr>
+nnoremap <silent> <leader>gv  :<C-u>CocList gfiles<cr>
+
+nnoremap <silent> <leader>n   :<C-u>CocNext<CR> " Do default action for next item. ?
+nnoremap <silent> <leader>p   :<C-u>CocPrev<CR> " Do default action for previous item.
+nnoremap <silent> <leader>rr  :<C-u>CocListResume<CR> " Resume latest coc list
 
 " ===========================================================================
 " cpp-mode
@@ -646,10 +672,6 @@ let g:UltiSnipsJumpBackwardTrigger="<c-n>"
 " ===
 nnoremap <c-f> :FlyGrep<CR>
 
-" ===
-" === GV
-" ===
-nnoremap <LEADER>gv :GV<CR>
 
 
 " ===================== End of Plugin Settings =====================
