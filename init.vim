@@ -114,51 +114,36 @@ tnoremap <C-N> <C-\><C-N>
 " ===
 " === Basic Mappings
 " ===
-" Set <LEADER> as <SPACE>
 let mapleader=" "
 
-" Save & quit
-noremap Q :q<CR>
-noremap S :w<CR>
+nnoremap <c-s> :w<cr> " Save & quit
 
-" Open the vimrc file anytime
-noremap <LEADER>rc :e ~/.config/nvim/init.vim<CR>
+noremap <leader>rc :e ~/.config/nvim/init.vim<cr> " Open the vimrc file anytime
+noremap <leader>st :Startify<cr> " Open Startify
 
-" Open Startify
-noremap <LEADER>st :Startify<CR>
+inoremap jj <esc> 
 
-" Map jj to ESC
-inoremap jj <ESC>
+noremap <leader><cr> :nohlsearch<cr> " Stop highlighting
 
-" Search  stop highlighting search result
-" type /<CR> to stop highlighting
-noremap <LEADER><CR> :nohlsearch<CR>
-
-" Folding
-noremap <silent> <LEADER>o za
+noremap <silent> <leader>o za " Folding
 
 " ===
 " === Window management
 " ===
 " Use <space> + new arrow keys for moving the cursor around windows
-noremap <LEADER>w <C-w>w
-noremap <LEADER>k <C-w>k
-noremap <LEADER>j <C-w>j
-noremap <LEADER>h <C-w>h
-noremap <LEADER>l <C-w>l
+noremap <leader>w <C-w>w
+noremap <leader>k <C-w>k
+noremap <leader>j <C-w>j
+noremap <leader>h <C-w>h
+noremap <leader>l <C-w>l
 
-" Disabling the default s key
-" noremap s <nop>
-
-" split the screens to up (horizontal), down (horizontal), left (vertical), right (vertical)
+" split the screens
 noremap <leader>sk :set nosplitbelow<CR>:split<CR>:set splitbelow<CR>
 noremap <leader>sj :set splitbelow<CR>:split<CR>
 noremap <leader>sh :set nosplitright<CR>:vsplit<CR>:set splitright<CR>
 noremap <leader>sl :set splitright<CR>:vsplit<CR>
-" Place the two screens up and down
-noremap <leader>sh <C-w>t<C-w>K
-" Place the two screens side by side
-noremap <leader>sv <C-w>t<C-w>H
+noremap <leader>sh <C-w>t<C-w>K " Place the two screens up and down
+noremap <leader>sv <C-w>t<C-w>H " Place the two screens side by side
 
 " Resize splits with arrow keys
 noremap <up> :res +5<CR>
@@ -172,51 +157,29 @@ noremap <leader>srv <C-w>b<C-w>H
 
 " ===
 " === Tab management
-" ===
-" Create a new tab with tn
-noremap <leader>tn :tabe<CR>
-
-" close tab
-noremap <leader>tc :tabc<CR>
+noremap <leader>tn :tabe<CR> " Create a new tab with tn
+noremap <leader>tc :tabc<CR> " close tab
 noremap <leader>to :tabo<CR>
-noremap <leader>tl :+tabnext<CR>
-noremap <leader>th :+tabnext<CR>
+noremap <silent><c-j> :-tabnext<cr>
+noremap <silent><c-k> :+tabnext<cr>
+
+
 
 " ===
 " === Buffer management
-" ===
 " Move around buffers
 noremap <C-L> :bn<CR>
 noremap <C-H> :bp<CR>
 noremap <C-C> :Bclose<CR>
 
-" ===
-" === Markdown Settings
-" ===
-" Snippets
-source ~/.config/nvim/snippits.vim
-" auto spell
-autocmd BufRead,BufNewFile *.md setlocal spell
-
-" ===
-" === Other useful stuff
-" ===
 " Opening a terminal window
 noremap <LEADER>/ :set splitbelow<CR>:sp<CR>:term<CR>
-
-" Press space twice to jump to the next '<++>' and edit it
-" noremap <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4i
-
-" Spelling Check with <space>sc
-" noremap <LEADER>sc :set spell!<CR>
-" noremap <C-x> ea<C-x>s
-" inoremap <C-x> <Esc>ea<C-x>s
 
 " Auto change directory to current dir
 autocmd BufEnter * silent! lcd %:p:h
 
 " using setting after save
- autocmd BufWritePost $MYVIMRC source $MYVIMRC
+autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
 " Compile function
 noremap <LEADER>r :call CompileRunGcc()<CR>
@@ -283,9 +246,6 @@ Plug 'francoiscabrol/ranger.vim'
 
 " Taglist
 Plug 'liuchengxu/vista.vim'
-
-" Error checking
-"Plug 'w0rp/ale'
 
 " Auto Complete
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
