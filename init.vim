@@ -30,12 +30,8 @@ endif
 "set clipboard=unnamed
 let &t_ut=''
 
+set encoding=UTF-8
 set autochdir "auto switch dirs
-
-
-" ===
-" === Editor behavior
-" ===
 set number
 set relativenumber
 set cursorline
@@ -57,7 +53,7 @@ set confirm
 
 set list
 set listchars=tab:▸\ ,trail:▫
-set scrolloff=4
+set scrolloff=4               "Minimal number of screen lines to keep above and below the cursor.
 set ttimeoutlen=0
 set notimeout
 set viewoptions=cursor,folds,slash,unix
@@ -224,7 +220,7 @@ func! CompileRunGcc()
 		exec "!time ./%<"
 	elseif &filetype == 'cpp'
 		set splitbelow
-		exec "!g++ -std=c++17 % -Wall -o %<"
+		exec "!g++ -pthread -std=c++17 % -Wall -o %<"
 		:sp
 		:res -15
 		:term ./%<
@@ -323,6 +319,7 @@ Plug 'kshenoy/vim-signature'
 " Find & Replace
 Plug 'wsdjeg/FlyGrep.vim' " Ctrl+f (normal) to find file content
 Plug 'brooth/far.vim', { 'on': ['F', 'Far', 'Fardo'] }
+Plug 'easymotion/vim-easymotion'
 " Plug 'osyo-manga/vim-anzu'
 
 " Other useful utilities
@@ -524,6 +521,12 @@ augroup end
 "nnoremap <leader>v :PasteCode<CR>
 nnoremap <silent><m-o>     :Switch<CR>
 "nnoremap ==        :FormatFunParam<CR>
+
+" easymotion
+let g:EasyMotion_smartcase = 1
+nmap ss <Plug>(easymotion-s2)
+
+
 
 " vim-commentary
 autocmd FileType c,cpp,java setlocal commentstring=//\ %s
