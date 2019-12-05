@@ -508,25 +508,12 @@ nnoremap <silent> <leader>y	 :<C-u>CocList -A --normal yank<cr>
 
 
 "------------------------------------------------------------------------------
-" lang tool 
+" gotos
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 nmap <leader> rn <Plug>(coc-rename)
-inoremap <silent><expr> <c-space> coc#refresh()	" force autocomplete
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
-
-" use <tab> for trigger completion and navigate to the next complete item
- function! s:check_back_space() abort
-   let col = col('.') - 1
-     return !col || getline('.')[col - 1]  =~ '\s'
-     endfunction
-
-     inoremap <silent><expr> <Tab>
-           \ pumvisible() ? "\<C-n>" :
-                 \ <SID>check_back_space() ? "\<Tab>" :
-                       \ coc#refresh()
 
 " Use gh to show documentation in preview window
 nnoremap <silent> gh :call <SID>show_documentation()<CR>
@@ -537,6 +524,23 @@ function! s:show_documentation()
 							    call CocAction('doHover')
 									  endif
 									endfunction
+"------------------------------------------------------------------------------
+"autocomplete
+" Use tab for trigger completion with characters ahead and navigate.
+inoremap <silent><expr> <TAB>
+    \ pumvisible() ? "\<C-n>" :
+    \ <SID>check_back_space() ? "\<TAB>" :
+    \ coc#refresh()
+" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+inoremap <silent><expr> <c-space> coc#refresh()	" force autocomplete
+" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Remap for format selected region
 xmap <leader>f  <Plug>(coc-format-selected)
@@ -549,8 +553,8 @@ augroup mygroup
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end 
 
-
-
+" Use ':Format' to format current buffer
+command! -nargs=0 Format :call CocAction('format')
 
 " ===========================================================================
 " cpp-mode
