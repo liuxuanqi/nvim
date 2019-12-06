@@ -224,42 +224,26 @@ endfunc
 call plug#begin('~/.config/nvim/plugged')
 
 " Pretty Dress
-Plug 'vim-airline/vim-airline'
-Plug 'theniceboy/eleline.vim'
+Plug 'vim-airline/vim-airline'  " statusline
+Plug 'theniceboy/eleline.vim'   " another statusline
 Plug 'vim-airline/vim-airline-themes'
-Plug 'bling/vim-bufferline'
+" Plug 'bling/vim-bufferline'     " list buffer in command line
 "Plug 'liuchengxu/space-vim-theme'
 "Plug 'morhetz/gruvbox'
 "Plug 'ayu-theme/ayu-vim'
 "Plug 'rakr/vim-one'
 "Plug 'mhartington/oceanic-next'
 "Plug 'kristijanhusak/vim-hybrid-material'
-Plug 'ajmwagar/vim-deus'
+Plug 'ajmwagar/vim-deus' " color with language support
 
-" File navigation
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 " Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'junegunn/fzf.vim'
-"Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
-Plug 'junegunn/fzf'
-Plug 'francoiscabrol/ranger.vim'
 
-" Taglist
-Plug 'liuchengxu/vista.vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'} " Auto Complete
+Plug 'mbbill/undotree' " Undo Tree
+Plug 'mhinz/vim-startify' " welcom page
 
-" Auto Complete
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-" Snippets
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-
-" Undo Tree
-Plug 'mbbill/undotree'
-
-" Other visual enhancement
-"Plug 'tmhedberg/SimpylFold'
-Plug 'mhinz/vim-startify'
+Plug 'rbgrouleff/bclose.vim' " buffer close
 
 " Git
 Plug 'mhinz/vim-signify'
@@ -268,59 +252,29 @@ Plug 'fszymanski/fzf-gitignore', { 'do': ':UpdateRemotePlugins' }
 Plug 'tpope/vim-fugitive' " gv dependency
 Plug 'junegunn/gv.vim' " gv (normal) to show git log
 
-" HTML, CSS, JavaScript, PHP, JSON, etc.
-Plug 'elzr/vim-json'
-"Plug 'hail2u/vim-css3-syntax'
-"Plug 'spf13/PIV', { 'for' :['php', 'vim-plug'] }
-"Plug 'gko/vim-coloresque', { 'for': ['vim-plug', 'php', 'html', 'javascript', 'css', 'less'] }
-"Plug 'pangloss/vim-javascript' ", { 'for' :['javascript', 'vim-plug'] }
-"Plug 'jelera/vim-javascript-syntax'
-
-" For general writing
-Plug 'reedes/vim-wordy'
-Plug 'ron89/thesaurus_query.vim'
-
-" Bookmarks
-Plug 'kshenoy/vim-signature'
-
-" Find & Replace
-Plug 'wsdjeg/FlyGrep.vim' " Ctrl+f (normal) to find file content
-Plug 'brooth/far.vim', { 'on': ['F', 'Far', 'Fardo'] }
+Plug 'reedes/vim-wordy' "spelling check
+Plug 'ron89/thesaurus_query.vim' " 同义词替换
 Plug 'easymotion/vim-easymotion'
-" Plug 'osyo-manga/vim-anzu'
 
 " Other useful utilities
-" Plug 'jiangmiao/auto-pairs'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-surround' " type ysks' to wrap the word with '' or type cs'` to change 'word' to `word`
-Plug 'godlygeek/tabular' " type ;Tabularize /= to align the =
-Plug 'gcmt/wildfire.vim' " in Visual mode, type i' to select all text in '', or type i) i] i} ip
+Plug 'godlygeek/tabular' " alignment tool ;Tabularize /= to align the = 
 Plug 'scrooloose/nerdcommenter' " in <space>cc to comment a line
-Plug 'tmhedberg/SimpylFold'
-"Plug 'vim-scripts/restore_view.vim'
-Plug 'AndrewRadev/switch.vim' " gs to switch
+Plug 'tmhedberg/SimpylFold'     " zo to fold
+Plug 'AndrewRadev/switch.vim'   " gs to switch
 Plug 'ryanoasis/vim-devicons'
 Plug 'chrisbra/Colorizer' " Show colors with :ColorHighlight
 Plug 'airblade/vim-rooter'
 Plug 'tpope/vim-eunuch' " do stuff like :SudoWrite
-Plug 'tpope/vim-capslock'	" Ctrl+L (insert) to toggle capslock
-Plug 'KabbAmine/zeavim.vim' " <LEADER>z to find doc
 Plug 'itchyny/calendar.vim'
 
-" Dependencies
-Plug 'MarcWeber/vim-addon-mw-utils'
-Plug 'kana/vim-textobj-user'
-Plug 'roxma/nvim-yarp'
-Plug 'rbgrouleff/bclose.vim' " For ranger.vim
-
 " lsp base highlight for c++
-Plug 'arakashic/chromatica.nvim' " highlight based on clang
 Plug 'jackguo380/vim-lsp-cxx-highlight' " highlight based on ccls
 
 " cpp-mode
-Plug 'chxuan/cpp-mode'
-Plug 'chxuan/tagbar'
-Plug 'tpope/vim-commentary'
+Plug 'chxuan/cpp-mode' " generate definition from declaration
+Plug 'tpope/vim-commentary' " comment out
 
 call plug#end()
 
@@ -358,21 +312,15 @@ set list
 "color one
 color deus
 
+
 hi NonText ctermfg=gray guifg=grey10
 "hi SpecialKey ctermfg=blue guifg=grey70
 
-set listchars=tab:\|\ ,
+hi Normal ctermbg=NONE guibg=NONE " set background transparent
+hi LineNr ctermbg=NONE guibg=NONE
+hi SignColumn ctermbg=NONE guibg=NONE
 
-nnoremap \d :call ChangeDress()<CR>
-func! ChangeDress()
-	if g:ayucolor == "mirage"
-		let g:ayucolor = "light"
-		color ayu
-	else
-		let g:ayucolor = "mirage"
-		color ayu
-	endif
-endfunc
+set listchars=tab:\|\ ,
 
 " ===================== Start of Plugin Settings =====================
 
@@ -400,23 +348,8 @@ let NERDTreeMapCloseDir = ""
 let NERDTreeMapChangeRoot = "l"
 let NERDTreeMapMenu = ","
 let NERDTreeMapToggleHidden = "zh"
-
-
-" ==
-" == NERDTree-git
-" ==
-" let g:NERDTreeIndicatorMapCustom = {
-" 		\ "Modified"	: "M",
-" 		\ "Staged"		: "S",
-" 		\ "Untracked" : "U",
-" 		\ "Renamed"	 : "R",
-" 		\ "Unmerged"	: "═",
-" 		\ "Deleted"	 : "D",
-" 		\ "Dirty"		 : "CR",
-" 		\ "Clean"		 : "C",
-" 		\ "Unknown"	 : "?"
-" 		\ }
-
+let NERDTreeShowLineNumbers=1 " enable line numbers
+autocmd FileType nerdtree setlocal relativenumber " make sure relative line numbers are used
 
 " ===========================================================================
 " python
@@ -430,7 +363,7 @@ let g:lsp_cxx_hl_use_text_props=1
 " ===
 	let g:coc_global_extensions = ['coc-python', 'coc-git', 'coc-vimlsp', 
         \'coc-json', 'coc-marketplace', 'coc-snippets', 'coc-yank', 
-        \'coc-highlight', 'coc-pairs', 'coc-list', 'coc-gitignore',
+        \'coc-highlight', 'coc-pairs', 'coc-lists', 'coc-gitignore',
         \'coc-omnisharp']
 
 " Using CocList
@@ -445,6 +378,7 @@ nnoremap <silent> <leader>fw :<C-u>CocList words<cr>     " Find word in file
 nnoremap <silent> <leader>fd :<C-u>CocList -I symbols<cr>" Find sym in project
 nnoremap <silent> <leader>ff :<C-u>CocList files<cr>     " Find files
 nnoremap <silent> <leader>fe :<C-u>CocList diagnostics<cr> " Show diagnostics
+nnoremap <silent> <leader>fg :<C-u>CocList grep<cr> " Show diagnostics
 
 "-----------------------------------------------------------------------------
 " git tools
@@ -518,24 +452,15 @@ command! -nargs=0 Format :call CocAction('format')
 
 " ===========================================================================
 " cpp-mode
-"nnoremap <leader>c :CopyCode<CR>
-"nnoremap <leader>v :PasteCode<CR>
 nnoremap <silent><m-o>     :Switch<CR>
-"nnoremap ==        :FormatFunParam<CR>
 
 " easymotion
 let g:EasyMotion_smartcase = 1
 nmap ss <Plug>(easymotion-s2)
 
-
-
 " vim-commentary
+" set cpp comment tyle to //
 autocmd FileType c,cpp,java setlocal commentstring=//\ %s
-
-" tagbar
-let g:tagbar_width = 30
-nnoremap <silent> <leader>t :TagbarToggle<CR>
-" inoremap <silent> <leader>t <esc> :TagbarToggle<CR>
 
 " ===
 " === indentLine
@@ -546,108 +471,6 @@ let g:indentLine_color_gui = '#333333'
 silent! unmap <LEADER>ig
 autocmd WinEnter * silent! unmap <LEADER>ig
 let g:indentLine_fileTypeExclude = ['tex', 'markdown']
-
-" ===
-" === vim-table-mode
-" ===
-noremap <LEADER>tm :TableModeToggle<CR>
-
-" ===
-" === vim-signature
-" ===
-let g:SignatureMap = {
-				\ 'Leader'						 :	"m",
-				\ 'PlaceNextMark'			:	"m,",
-				\ 'ToggleMarkAtLine'	 :	"m.",
-				\ 'PurgeMarksAtLine'	 :	"dm",
-				\ 'DeleteMark'				 :	"",
-				\ 'PurgeMarks'				 :	"",
-				\ 'PurgeMarkers'			 :	"",
-				\ 'GotoNextLineAlpha'	:	"m<LEADER>",
-				\ 'GotoPrevLineAlpha'	:	"",
-				\ 'GotoNextSpotAlpha'	:	"m<LEADER>",
-				\ 'GotoPrevSpotAlpha'	:	"",
-				\ 'GotoNextLineByPos'	:	"",
-				\ 'GotoPrevLineByPos'	:	"",
-				\ 'GotoNextSpotByPos'	:	"",
-				\ 'GotoPrevSpotByPos'	:	"",
-				\ 'GotoNextMarker'		 :	"",
-				\ 'GotoPrevMarker'		 :	"",
-				\ 'GotoNextMarkerAny'	:	"",
-				\ 'GotoPrevMarkerAny'	:	"",
-				\ 'ListLocalMarks'		 :	"m/",
-				\ 'ListLocalMarkers'	 :	"m?"
-				\ }
-
-
-" ===
-" === Undotree
-" ===
-noremap <leader>u :UndotreeToggle<CR>
-let g:undotree_DiffAutoOpen = 1
-let g:undotree_SetFocusWhenToggle = 1
-let g:undotree_ShortIndicators = 1
-
-
-" Startify
-let g:startify_lists = [
-			\ { 'type': 'files',		 'header': ['	 MRU']	},
-			\ { 'type': 'bookmarks', 'header': ['	 Bookmarks']},
-			\ { 'type': 'commands',	'header': ['	 Commands']	},
-			\ ]
-
-" ===
-" === emmet
-" ===
-let g:user_emmet_leader_key='<c-]'
-
-
-" ===
-" === Bullets.vim
-" ===
-let g:bullets_set_mappings = 0
-
-" ===
-" === Vista.vim
-" ===
-noremap <silent> T :Vista!!<CR>
-noremap <silent> <C-t> :Vista finder<CR>
-function! NearestMethodOrFunction() abort
-	return get(b:, 'vista_nearest_method_or_function', '')
-endfunction
-
-set statusline+=%{NearestMethodOrFunction()}
-autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
-
-" e.g., more compact: ["▸ ", ""]
-let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
-let g:vista_default_executive = 'coc'
-" To enable fzf's preview window set g:vista_fzf_preview.
-" The elements of g:vista_fzf_preview will be passed as arguments to fzf#vim#with_preview()
-" For example:
-let g:vista_fzf_preview = ['right:50%']
-
-
-" ===
-" === Ranger.vim
-" ===
-nnoremap R :Ranger<CR>
-
-" ===
-" === Ultisnips
-" ===
-" let g:tex_flavor = "latex"
-inoremap <c-n> <nop>
-let g:UltiSnipsExpandTrigger="<c-e>"
-let g:UltiSnipsJumpForwardTrigger="<c-e>"
-let g:UltiSnipsJumpBackwardTrigger="<c-n>"
-
-" ===
-" === FlyGrep
-" ===
-nnoremap <c-f> :FlyGrep<CR>
-
-
 
 " ===================== End of Plugin Settings =====================
 
