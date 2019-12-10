@@ -3,60 +3,49 @@
 "| |\/| |\ V /  |  \| |\ \ / / | || |\/| | |_) | |    
 "| |  | | | |   | |\  | \ V /  | || |  | |  _ <| |___ 
 "|_|  |_| |_|   |_| \_|  \_/  |___|_|  |_|_| \_\\____|
-                                                     
-" Author: @theniceboy
-
-" Checkout-list
-" vim-esearch
-" fmoralesc/worldslice
-" SidOfc/mkdx
-
-" ===
-" === Auto load for first time uses
-" ===
+"
+"------------------------------------------------------------------------------
+"  install vim-plug at first download
+"------------------------------------------------------------------------------
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
 	silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
 		\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-" ====================
-" === Editor Setup ===
-" ====================
-
-" ===
-" === System
-" ===
-"set clipboard=unnamed
-let &t_ut=''
-
+"------------------------------------------------------------------------------
+" necessary for vim
+"------------------------------------------------------------------------------
+set nocompatible
 set encoding=UTF-8
+
+"------------------------------------------------------------------------------
+" basic settings
+"------------------------------------------------------------------------------
 set autochdir "auto switch dirs
 set number
 set relativenumber
 set cursorline
-set expandtab
+set expandtab " use spaces to replace tab, use CTRL-V<Tab> to insert a tab
 set tabstop=4
-set shiftwidth=4
+set shiftwidth=4 " space size when using << or >>
 set softtabstop=4
 
-" come from vimplus
 set autoindent
 set cindent " c stype indent
-set cinoptions=g0,:0,N-s,(0)
-set smartindent
+set cinoptions=g0,:0,N-s,(0) " affect indent c++ keyword like public
+set smartindent  "Do smart autoindenting when starting a new line.  
 set nobackup
 set noswapfile
-set autoread
-set autowrite
-set confirm
+set autoread    " auto read when modified outside
+set autowrite   " auto write when action like changing buffer
+set confirm     " need confirm when action like :q
 
 "------------------------------------------------------------------------------
 " coc.nvim related
 set hidden "  TextEdit might fail if not set
 set updatetime=300 "for diagnostics messages
 set signcolumn=yes
-
 
 set list
 set listchars=tab:▸\ ,trail:▫
@@ -102,14 +91,15 @@ let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
-
-" ===
-" === Terminal Behavior
-" ===
+"------------------------------------------------------------------------------
+" termimal control
+"------------------------------------------------------------------------------
 let g:neoterm_autoscroll = 1
 autocmd TermOpen term://* startinsert
 tnoremap <C-N> <C-\><C-N>
 
+" auto change directory to current dir
+autocmd BufEnter * silent! lcd %:p:h
 
 " ===
 " === Basic Mappings
@@ -118,71 +108,67 @@ let mapleader=" "
 
 nnoremap <c-s> :w<cr> " Save & quit
 
-noremap <leader>rc :e ~/.config/nvim/init.vim<cr> " Open the vimrc file anytime
-noremap <leader>st :Startify<cr> " Open Startify
+nnoremap <silent> <leader>rc :e ~/.config/nvim/init.vim<cr> " Open the vimrc file anytime
+nnoremap <silent> <leader>st :Startify<cr>                  " Open Startify
 
 inoremap jj <esc> 
 
-noremap <leader><cr> :nohlsearch<cr> " Stop highlighting
+nnoremap <silent> <leader><cr> :nohlsearch<cr> " Stop highlighting
 
-noremap <silent> <leader>o za " Folding
+nnoremap <silent> <leader>o za " Folding
 
 " ===
 " === Window management
 " ===
 " Use <space> + new arrow keys for moving the cursor around windows
-noremap <leader>w <C-w>w
-noremap <leader>k <C-w>k
-noremap <leader>j <C-w>j
-noremap <leader>h <C-w>h
-noremap <leader>l <C-w>l
+nnoremap <silent> <leader>w <C-w>w
+nnoremap <silent> <leader>k <C-w>k
+nnoremap <silent> <leader>j <C-w>j
+nnoremap <silent> <leader>h <C-w>h
+nnoremap <silent> <leader>l <C-w>l
 
 " split the screens
-noremap <leader>sk :set nosplitbelow<CR>:split<CR>:set splitbelow<CR>
-noremap <leader>sj :set splitbelow<CR>:split<CR>
-noremap <leader>sh :set nosplitright<CR>:vsplit<CR>:set splitright<CR>
-noremap <leader>sl :set splitright<CR>:vsplit<CR>
-noremap <leader>sh <C-w>t<C-w>K " Place the two screens up and down
-noremap <leader>sv <C-w>t<C-w>H " Place the two screens side by side
+nnoremap <silent> <leader>sk :set nosplitbelow<CR>:split<CR>:set splitbelow<CR>
+nnoremap <silent> <leader>sj :set splitbelow<CR>:split<CR>
+nnoremap <silent> <leader>sh :set nosplitright<CR>:vsplit<CR>:set splitright<CR>
+nnoremap <silent> <leader>sl :set splitright<CR>:vsplit<CR>
+nnoremap <silent> <leader>sh <C-w>t<C-w>K " Place the two screens up and down
+nnoremap <silent> <leader>sv <C-w>t<C-w>H " Place the two screens side by side
 
 " Resize splits with arrow keys
-noremap <up> :res +5<CR>
-noremap <down> :res -5<CR>
-noremap <left> :vertical resize-5<CR>
-noremap <right> :vertical resize+5<CR>
+nnoremap <up> :res +5<CR>
+nnoremap <down> :res -5<CR>
+nnoremap <left> :vertical resize-5<CR>
+nnoremap <right> :vertical resize+5<CR>
 
 " Rotate screens
-noremap <leader>srh <C-w>b<C-w>K
-noremap <leader>srv <C-w>b<C-w>H
+nnoremap <silent> <leader>srh <C-w>b<C-w>K
+nnoremap <silent> <leader>srv <C-w>b<C-w>H
 
-" ===
-" === Tab management
-noremap <leader>tn :tabe<CR> " Create a new tab with tn
-noremap <leader>tc :tabc<CR> " close tab
-noremap <leader>to :tabo<CR>
+"------------------------------------------------------------------------------
+" tab control
+"------------------------------------------------------------------------------
+nnoremap <silent> <leader>tn :tabe<CR> " Create a new tab with tn
+nnoremap <silent> <leader>tc :tabc<CR> " close tab
+nnoremap <silent> <leader>to :tabo<CR>
 noremap <silent><c-j> :-tabnext<cr>
 noremap <silent><c-k> :+tabnext<cr>
 
-
-
-" ===
-" === Buffer management
-" Move around buffers
+"------------------------------------------------------------------------------
+" buffer control
+"------------------------------------------------------------------------------
 noremap <C-L> :bn<CR>
 noremap <C-H> :bp<CR>
 noremap <C-C> :Bclose<CR>
 
-" Opening a terminal window
+
 noremap <LEADER>/ :set splitbelow<CR>:sp<CR>:term<CR>
-
-" Auto change directory to current dir
-autocmd BufEnter * silent! lcd %:p:h
-
 " using setting after save
-autocmd BufWritePost $MYVIMRC source $MYVIMRC
+" autocmd BufWritePost $MYVIMRC source $MYVIMRC
+
 
 " Compile function
-noremap <LEADER>r :call CompileRunGcc()<CR>
+nnoremap <silent> <leader>r :call CompileRunGcc()
 func! CompileRunGcc()
 	exec "w"
 	if &filetype == 'c'
@@ -260,6 +246,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-surround' " type ysks' to wrap the word with '' or type cs'` to change 'word' to `word`
 Plug 'godlygeek/tabular' " alignment tool ;Tabularize /= to align the = 
+Plug 'junegunn/vim-easy-align'
 Plug 'scrooloose/nerdcommenter' " in <space>cc to comment a line
 Plug 'tmhedberg/SimpylFold'     " zo to fold
 Plug 'AndrewRadev/switch.vim'   " gs to switch
@@ -268,9 +255,11 @@ Plug 'chrisbra/Colorizer' " Show colors with :ColorHighlight
 Plug 'airblade/vim-rooter'
 Plug 'tpope/vim-eunuch' " do stuff like :SudoWrite
 Plug 'itchyny/calendar.vim'
+" Plug 'kien/rainbow_parentheses.vim'
 
 " lsp base highlight for c++
 Plug 'jackguo380/vim-lsp-cxx-highlight' " highlight based on ccls
+" Plug 'frazrepo/vim-rainbow'
 
 " cpp-mode
 Plug 'chxuan/cpp-mode' " generate definition from declaration
@@ -278,23 +267,13 @@ Plug 'tpope/vim-commentary' " comment out
 
 call plug#end()
 
+
+"------------------------------------------------------------------------------
+" 
 let g:colorizer_syntax = 1
 
 
-" ===
-" === Create a _machine_specific.vim file to adjust machine specific stuff, like python interpreter location
-" ===
-let has_machine_specific_file = 1
-if empty(glob('~/.config/nvim/_machine_specific.vim'))
-	let has_machine_specific_file = 0
-	silent! exec "!cp ~/.config/nvim/default_configs/_machine_specific_default.vim ~/.config/nvim/_machine_specific.vim"
-endif
-source ~/.config/nvim/_machine_specific.vim
-
-
-" ===
 " === Dress up my vim
-" ===
 set termguicolors	" enable true colors support
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 set background=dark
@@ -305,9 +284,9 @@ let g:one_allow_italics = 1
 
 set list
 "set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
+set listchars=tab:\|\ ,
 
-
-"color ayu
+"color ayu 
 "color dracula
 "color one
 color deus
@@ -320,7 +299,6 @@ hi Normal ctermbg=NONE guibg=NONE " set background transparent
 hi LineNr ctermbg=NONE guibg=NONE
 hi SignColumn ctermbg=NONE guibg=NONE
 
-set listchars=tab:\|\ ,
 
 " ===================== Start of Plugin Settings =====================
 
@@ -358,13 +336,18 @@ let g:python3_host_prog='/usr/local/bin/python3.7'
 " === highlight
 " ===vim-lsp-cxx-highlight
 let g:lsp_cxx_hl_use_text_props=1
-" ===========================================================================
-" === coc
-" ===
-	let g:coc_global_extensions = ['coc-python', 'coc-git', 'coc-vimlsp', 
-        \'coc-json', 'coc-marketplace', 'coc-snippets', 'coc-yank', 
-        \'coc-highlight', 'coc-pairs', 'coc-lists', 'coc-gitignore',
-        \'coc-omnisharp']
+
+"------------------------------------------------------------------------------
+" vim-rainbow 
+"------------------------------------------------------------------------------
+" let g:rainbow_active = 1
+"------------------------------------------------------------------------------
+" coc
+"------------------------------------------------------------------------------
+let g:coc_global_extensions = ['coc-python', 'coc-git', 'coc-vimlsp', 
+    \'coc-json', 'coc-marketplace', 'coc-snippets', 'coc-yank', 
+    \'coc-highlight', 'coc-pairs', 'coc-lists', 'coc-gitignore',
+    \'coc-omnisharp', 'coc-explorer']
 
 " Using CocList
 nnoremap <silent> <leader>me :<C-u>CocList extensions<cr> " Manage extensions
@@ -376,7 +359,8 @@ nnoremap <silent> <leader>mk :<C-u>CocList marketplace<cr>" Marketplace
 nnoremap <silent> <leader>fs :<C-u>CocList outline<cr>   " Find symbol in file
 nnoremap <silent> <leader>fw :<C-u>CocList words<cr>     " Find word in file
 nnoremap <silent> <leader>fd :<C-u>CocList -I symbols<cr>" Find sym in project
-nnoremap <silent> <leader>ff :<C-u>CocList files<cr>     " Find files
+" nnoremap <silent> <leader>ff :<C-u>CocList files<cr>     " Find files
+nnoremap <silent> <m-p> :<C-u>CocList files<cr>     " Find files
 nnoremap <silent> <leader>fe :<C-u>CocList diagnostics<cr> " Show diagnostics
 nnoremap <silent> <leader>fg :<C-u>CocList grep<cr> " Show diagnostics
 
@@ -407,7 +391,7 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-nmap <leader> rn <Plug>(coc-rename)
+nnoremap <leader> rn <Plug>(coc-rename)
 
 " Use gh to show documentation in preview window
 nnoremap <silent> gh :call <SID>show_documentation()<CR>
@@ -471,11 +455,4 @@ let g:indentLine_color_gui = '#333333'
 silent! unmap <LEADER>ig
 autocmd WinEnter * silent! unmap <LEADER>ig
 let g:indentLine_fileTypeExclude = ['tex', 'markdown']
-
-" ===================== End of Plugin Settings =====================
-
-" Open the _machine_specific.vim file if it has just been created
-if has_machine_specific_file == 0
-	exec "e ~/.config/nvim/_machine_specific.vim"
-endif
 
