@@ -22,13 +22,13 @@ set encoding=UTF-8
 "------------------------------------------------------------------------------
 " basic settings
 "------------------------------------------------------------------------------
-set autochdir "auto switch dirs
+set autochdir      " auto switch dirs
 set number
 set relativenumber
 set cursorline
-set expandtab " use spaces to replace tab, use CTRL-V<Tab> to insert a tab
+set expandtab      " use spaces to replace tab, use CTRL-V<Tab> to insert a tab
 set tabstop=4
-set shiftwidth=4 " space size when using << or >>
+set shiftwidth=4   " space size when using << or >>
 set softtabstop=4
 
 set autoindent
@@ -101,9 +101,10 @@ tnoremap <C-N> <C-\><C-N>
 " auto change directory to current dir
 autocmd BufEnter * silent! lcd %:p:h
 
-" ===
-" === Basic Mappings
-" ===
+
+"------------------------------------------------------------------------------
+" basic mapping
+"------------------------------------------------------------------------------
 let mapleader=" "
 
 nnoremap <c-s> :w<cr> " Save & quit
@@ -347,7 +348,7 @@ let g:lsp_cxx_hl_use_text_props=1
 let g:coc_global_extensions = ['coc-python', 'coc-git', 'coc-vimlsp', 
     \'coc-json', 'coc-marketplace', 'coc-snippets', 'coc-yank', 
     \'coc-highlight', 'coc-pairs', 'coc-lists', 'coc-gitignore',
-    \'coc-omnisharp', 'coc-explorer']
+    \'coc-omnisharp', 'coc-explorer', 'coc-tabnine', 'coc-translator', 'coc-ccls']
 
 " Using CocList
 nnoremap <silent> <leader>me :<C-u>CocList extensions<cr> " Manage extensions
@@ -358,11 +359,11 @@ nnoremap <silent> <leader>mk :<C-u>CocList marketplace<cr>" Marketplace
 " search tools
 nnoremap <silent> <leader>fs :<C-u>CocList outline<cr>   " Find symbol in file
 nnoremap <silent> <leader>fw :<C-u>CocList words<cr>     " Find word in file
-nnoremap <silent> <leader>fd :<C-u>CocList -I symbols<cr>" Find sym in project
-" nnoremap <silent> <leader>ff :<C-u>CocList files<cr>     " Find files
+
 nnoremap <silent> <m-p> :<C-u>CocList files<cr>     " Find files
-nnoremap <silent> <leader>fe :<C-u>CocList diagnostics<cr> " Show diagnostics
-nnoremap <silent> <leader>fg :<C-u>CocList grep<cr> " Show diagnostics
+nnoremap <silent> <leader>ps :<C-u>CocList -I symbols<cr>" Find sym in project
+nnoremap <silent> <leader>pe :<C-u>CocList diagnostics<cr> " Show diagnostics
+nnoremap <silent> <leader>pg :<C-u>CocList grep<cr> " Show diagnostics
 
 "-----------------------------------------------------------------------------
 " git tools
@@ -374,8 +375,13 @@ nnoremap <silent> <leader>gb :<C-u>CocList branches<cr>
 nnoremap <silent> <leader>gv :<C-u>CocList gfiles<cr>
 
 nnoremap <silent> <leader>n  :<C-u>CocNext<CR> " Default action for next item. 
-nnoremap <silent> <leader>p  :<C-u>CocPrev<CR> " Default action for prev item.
+" nnoremap <silent> <leader>p  :<C-u>CocPrev<CR> " Default action for prev item.
 nnoremap <silent> <leader>rr :<C-u>CocListResume<CR> " Resume latest coc list
+
+"-----------------------------------------------------------------------------
+" coc-translator
+nmap  <leader>t :<C-u>CocCommand translator.popup<cr>
+
 
 "------------------------------------------------------------------------------
 " list 
