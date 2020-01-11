@@ -160,12 +160,12 @@ noremap <silent><c-k> :+tabnext<cr>
 "------------------------------------------------------------------------------
 noremap <C-L> :bn<CR>
 noremap <C-H> :bp<CR>
-noremap <C-C> :Bclose<CR>
+noremap <C-k> :Bclose<CR>
 
 
 noremap <LEADER>/ :set splitbelow<CR>:sp<CR>:term<CR>
 " using setting after save
-" autocmd BufWritePost $MYVIMRC source $MYVIMRC
+autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
 
 " Compile function
@@ -177,7 +177,7 @@ func! CompileRunGcc()
 		exec "!time ./%<"
 	elseif &filetype == 'cpp'
 		set splitbelow
-		exec "!g++ -pthread -mavx -std=c++17 % -Wall -o %<"
+		exec "!g++ -pthread -mavx2 -O3 -std=c++17 % -Wall -o %<"
 		:sp
 		:res -15
 		:term ./%<
@@ -348,7 +348,7 @@ let g:lsp_cxx_hl_use_text_props=1
 let g:coc_global_extensions = ['coc-python', 'coc-git', 'coc-vimlsp', 
     \'coc-json', 'coc-marketplace', 'coc-snippets', 'coc-yank', 
     \'coc-highlight', 'coc-pairs', 'coc-lists', 'coc-gitignore',
-    \'coc-omnisharp', 'coc-explorer', 'coc-tabnine', 'coc-translator', 'coc-ccls']
+    \'coc-omnisharp', 'coc-explorer', 'coc-tabnine', 'coc-translator']
 
 " Using CocList
 nnoremap <silent> <leader>me :<C-u>CocList extensions<cr> " Manage extensions
@@ -397,7 +397,7 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-nnoremap <leader> rn <Plug>(coc-rename)
+nmap <silent> <leader>rn <Plug>(coc-rename)
 
 " Use gh to show documentation in preview window
 nnoremap <silent> gh :call <SID>show_documentation()<CR>
