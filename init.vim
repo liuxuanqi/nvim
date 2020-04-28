@@ -348,7 +348,8 @@ let g:lsp_cxx_hl_use_text_props=1
 let g:coc_global_extensions = ['coc-python', 'coc-git', 'coc-vimlsp', 
     \'coc-json', 'coc-marketplace', 'coc-snippets', 'coc-yank', 
     \'coc-highlight', 'coc-pairs', 'coc-lists', 'coc-gitignore',
-    \'coc-omnisharp', 'coc-explorer', 'coc-tabnine', 'coc-translator']
+    \'coc-omnisharp', 'coc-explorer', 'coc-tabnine', 'coc-translator',
+    \'coc-cmake', 'coc-explorer', 'coc-floaterm' ]
 
 " Using CocList
 nnoremap <silent> <leader>me :<C-u>CocList extensions<cr> " Manage extensions
@@ -357,13 +358,14 @@ nnoremap <silent> <leader>mk :<C-u>CocList marketplace<cr>" Marketplace
 
 "-----------------------------------------------------------------------------
 " search tools
-nnoremap <silent> <leader>fs :<C-u>CocList outline<cr>   " Find symbol in file
-nnoremap <silent> <leader>fw :<C-u>CocList words<cr>     " Find word in file
+nnoremap <silent> <leader>fs :<C-u>CocList -A outline<cr>   " Find symbol in file
+nnoremap <silent> <leader>fw :<C-u>CocList -A words<cr>     " Find word in file
+nnoremap <silent> <m-l>      :<C-u>CocList buffers<cr>      " List buffers
 
-nnoremap <silent> <m-p> :<C-u>CocList files<cr>     " Find files
-nnoremap <silent> <leader>ps :<C-u>CocList -I symbols<cr>" Find sym in project
-nnoremap <silent> <leader>pe :<C-u>CocList diagnostics<cr> " Show diagnostics
-nnoremap <silent> <leader>pg :<C-u>CocList grep<cr> " Show diagnostics
+nnoremap <silent> <m-p>      :<C-u>CocList -A files<cr>     " Find files
+nnoremap <silent> <leader>ps :<C-u>CocList -A symbols<cr>" Find sym in project
+nnoremap <silent> <leader>pe :<C-u>CocList -A diagnostics<cr> " Show diagnostics
+nnoremap <silent> <leader>pg :<C-u>CocList -A grep<cr> " Show diagnostics
 
 "-----------------------------------------------------------------------------
 " git tools
