@@ -224,6 +224,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'ajmwagar/vim-deus' " color with language support
 
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'liuchengxu/vista.vim'
 " Plug 'Xuyuanp/nerdtree-git-plugin'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " Auto Complete
@@ -337,7 +338,8 @@ let g:python3_host_prog='/usr/local/bin/python3.7'
 
 " === highlight
 " ===vim-lsp-cxx-highlight
-let g:lsp_cxx_hl_use_text_props=1
+" let g:lsp_cxx_hl_use_text_props=1
+let g:lsp_cxx_hl_syntax_priority=1
 
 "------------------------------------------------------------------------------
 " vim-rainbow 
@@ -364,7 +366,7 @@ nnoremap <silent> <leader>fw :<C-u>CocList -A words<cr>     " Find word in file
 nnoremap <silent> <m-l>      :<C-u>CocList buffers<cr>      " List buffers
 
 nnoremap <silent> <m-p>      :<C-u>CocList -A files<cr>     " Find files
-nnoremap <silent> <leader>ps :<C-u>CocList -A symbols<cr>" Find sym in project
+nnoremap <silent> <leader>ps :<C-u>CocList  symbols<cr>" Find sym in project
 nnoremap <silent> <leader>pe :<C-u>CocList -A diagnostics<cr> " Show diagnostics
 nnoremap <silent> <leader>pg :<C-u>CocList -A grep<cr> " Show diagnostics
 
@@ -381,6 +383,37 @@ nnoremap <silent> <leader>n  :<C-u>CocNext<CR> " Default action for next item.
 " nnoremap <silent> <leader>p  :<C-u>CocPrev<CR> " Default action for prev item.
 nnoremap <silent> <leader>rr :<C-u>CocListResume<CR> " Resume latest coc list
 
+" bases
+nn <silent> <leader>xb :call CocLocations('ccls','$ccls/inheritance')<cr>
+" bases of up to 3 levels
+nn <silent> <leader>xB :call CocLocations('ccls','$ccls/inheritance',{'levels':3})<cr>
+" derived
+nn <silent> <leader>xd :call CocLocations('ccls','$ccls/inheritance',{'derived':v:true})<cr>
+" derived of up to 3 levels
+nn <silent> <leader>xD :call CocLocations('ccls','$ccls/inheritance',{'derived':v:true,'levels':3})<cr>
+
+" caller
+nn <silent> <leader>xc :call CocLocations('ccls','$ccls/call')<cr>
+" callee
+nn <silent> <leader>xC :call CocLocations('ccls','$ccls/call',{'callee':v:true})<cr>"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 "-----------------------------------------------------------------------------
 " coc-translator
 nmap  <leader>t :<C-u>CocCommand translator.popup<cr>
@@ -393,6 +426,8 @@ nmap  <leader>t :<C-u>CocCommand translator.popup<cr>
 nnoremap <silent> <leader>mu :<C-u>CocList mru<CR> " most recent used
 nnoremap <silent> <leader>y	 :<C-u>CocList -A --normal yank<cr>
 
+nnoremap <silent> <leader>c :CopyCode<cr>
+nnoremap <silent> <leader>p :PasteCode<cr>
 
 "------------------------------------------------------------------------------
 " gotos
@@ -459,6 +494,33 @@ function! s:check_back_space() abort
         return !col || getline('.')[col - 1]  =~# '\s'
     endfunction
 let g:coc_snippet_next = '<tab>'
+
+" vista
+function! NearestMethodOrFunction() abort
+  return get(b:, 'vista_nearest_method_or_function', '')
+  endfunction
+
+set statusline+=%{NearestMethodOrFunction()}
+
+" By default vista.vim never run if you don't call it explicitly.
+"
+" If you want to show the nearest function in your statusline automatically,
+" you can add the following line to your vimrc 
+autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+let g:vista_icon_indent = ["╰▸ ", "├▸ "]
+let g:vista_default_executive = 'coc'
+let g:vista#renderer#enable_icon = 1
+noremap T :Vista!!<CR>
+
+
+
+
+
+
+
+
+
+
 
 " easymotion
 let g:EasyMotion_smartcase = 1
