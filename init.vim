@@ -101,7 +101,6 @@ tnoremap <C-N> <C-\><C-N>
 " auto change directory to current dir
 autocmd BufEnter * silent! lcd %:p:h
 
-
 "------------------------------------------------------------------------------
 " basic mapping
 "------------------------------------------------------------------------------
@@ -212,7 +211,7 @@ call plug#begin('~/.config/nvim/plugged')
 
 " Pretty Dress
 Plug 'vim-airline/vim-airline'  " statusline
-Plug 'theniceboy/eleline.vim'   " another statusline
+" Plug 'theniceboy/eleline.vim'   " another statusline
 Plug 'vim-airline/vim-airline-themes'
 " Plug 'bling/vim-bufferline'     " list buffer in command line
 "Plug 'liuchengxu/space-vim-theme'
@@ -240,6 +239,8 @@ Plug 'gisphm/vim-gitignore', { 'for': ['gitignore', 'vim-plug'] }
 Plug 'fszymanski/fzf-gitignore', { 'do': ':UpdateRemotePlugins' }
 Plug 'tpope/vim-fugitive' " gv dependency
 Plug 'junegunn/gv.vim' " gv (normal) to show git log
+Plug 'junegunn/fzf', {'do': { -> fzf#install() }}
+Plug 'Junegunn/fzf.vim'
 
 Plug 'reedes/vim-wordy' "spelling check
 Plug 'ron89/thesaurus_query.vim' " 同义词替换
@@ -311,6 +312,15 @@ hi SignColumn ctermbg=NONE guibg=NONE
 let g:airline#extensions#tabline#enabled=1
 let g:airline#extensions#tabline#buffer_nr_show=1
 let g:airline#extensions#tabline#formatter ='unique_tail'
+" if !exists('g:airline_symbols')
+" let g:airline_symbols = {}
+" endif
+" let g:airline_left_sep = '▶'
+" let g:airline_left_alt_sep = '❯'
+" let g:airline_right_sep = '◀'
+" let g:airline_right_alt_sep = '❮'
+" let g:airline_symbols.linenr = '¶'
+" let g:airline_symbols.branch = '⎇'
 
 " ===
 " === NERDTree
@@ -334,8 +344,7 @@ autocmd FileType nerdtree setlocal relativenumber " make sure relative line numb
 
 " ===========================================================================
 " python
-let g:python3_host_prog='/usr/local/bin/python3.7'
-
+let g:python3_host_prog='/home/i512993/anaconda3/bin/python'
 " === highlight
 " ===vim-lsp-cxx-highlight
 " let g:lsp_cxx_hl_use_text_props=1
@@ -348,7 +357,7 @@ let g:lsp_cxx_hl_syntax_priority=1
 "------------------------------------------------------------------------------
 " coc
 "------------------------------------------------------------------------------
-let g:coc_global_extensions = ['coc-python', 'coc-git', 'coc-vimlsp', 
+let g:coc_global_extensions = ['coc-python', 'coc-vimlsp', 
     \'coc-json', 'coc-marketplace', 'coc-snippets', 'coc-yank', 
     \'coc-highlight', 'coc-pairs', 'coc-lists', 'coc-gitignore',
     \'coc-omnisharp', 'coc-explorer', 'coc-tabnine', 'coc-translator',
@@ -364,8 +373,10 @@ nnoremap <silent> <leader>mk :<C-u>CocList marketplace<cr>" Marketplace
 nnoremap <silent> <leader>fs :<C-u>CocList -A outline<cr>   " Find symbol in file
 nnoremap <silent> <leader>fw :<C-u>CocList -A words<cr>     " Find word in file
 nnoremap <silent> <m-l>      :<C-u>CocList buffers<cr>      " List buffers
+nnoremap <silent> <m-w>      :<C-u>CocList -I grep<cr>      " grep word
 
 nnoremap <silent> <m-p>      :<C-u>CocList -A files<cr>     " Find files
+nmap     <silent> <c-p>      :GFiles<CR>
 nnoremap <silent> <leader>ps :<C-u>CocList  symbols<cr>" Find sym in project
 nnoremap <silent> <leader>pe :<C-u>CocList -A diagnostics<cr> " Show diagnostics
 nnoremap <silent> <leader>pg :<C-u>CocList -A grep<cr> " Show diagnostics
@@ -397,23 +408,6 @@ nn <silent> <leader>xc :call CocLocations('ccls','$ccls/call')<cr>
 " callee
 nn <silent> <leader>xC :call CocLocations('ccls','$ccls/call',{'callee':v:true})<cr>"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 "-----------------------------------------------------------------------------
 " coc-translator
 nmap  <leader>t :<C-u>CocCommand translator.popup<cr>
@@ -426,8 +420,8 @@ nmap  <leader>t :<C-u>CocCommand translator.popup<cr>
 nnoremap <silent> <leader>mu :<C-u>CocList mru<CR> " most recent used
 nnoremap <silent> <leader>y	 :<C-u>CocList -A --normal yank<cr>
 
-nnoremap <silent> <leader>c :CopyCode<cr>
-nnoremap <silent> <leader>p :PasteCode<cr>
+nnoremap <silent> <leader>c :CopyCode<CR>
+nnoremap <silent> <leader>p :PasteCode<CR>
 
 "------------------------------------------------------------------------------
 " gotos
@@ -462,7 +456,9 @@ function! s:show_documentation()
 " endfunction
 
 inoremap <silent><expr> <c-space> coc#refresh()	" force autocomplete
-" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" inoremap <silent> <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <silent><expr> <cr> "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Remap for format selected region
 xmap <leader>f  <Plug>(coc-format-selected)
