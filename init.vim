@@ -344,7 +344,8 @@ autocmd FileType nerdtree setlocal relativenumber " make sure relative line numb
 
 " ===========================================================================
 " python
-let g:python3_host_prog='/home/i512993/anaconda3/bin/python'
+let g:python3_host_prog='/home/i512993/App/anaconda3/bin/python3'
+
 " === highlight
 " ===vim-lsp-cxx-highlight
 " let g:lsp_cxx_hl_use_text_props=1
