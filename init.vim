@@ -106,7 +106,7 @@ autocmd BufEnter * silent! lcd %:p:h
 "------------------------------------------------------------------------------
 let mapleader=" "
 
-nnoremap <c-s> :w<cr> " Save & quit
+" nnoremap <c-s> :w<cr> " Save & quit
 
 nnoremap <silent> <leader>rc :e ~/.config/nvim/init.vim<cr> " Open the vimrc file anytime
 nnoremap <silent> <leader>st :Startify<cr>                  " Open Startify
